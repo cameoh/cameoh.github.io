@@ -31,7 +31,7 @@ pre {
 本文介绍一些<a href="http://google-styleguide.googlecode.com/svn/trunk/javaguide.html" target="_blank">Google Java Style</a>没有讲到的Java编码风格注意事项
 </div>
 
-<h3>成员变量初始化</h3>
+<h3>字段初始化</h3>
 <pre class="prettyprint">
 // 不推荐写法：
 public class MyClass {
@@ -50,7 +50,7 @@ public class MyClass {
   ...
 }
 </pre>
-<p>说明：成员变量声明时若无初始化语句，会自动初始化到<a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-4.html#jls-4.12.5" target="_blank">默认值</a>，此默认值多数情况下符合需求。</p>
+<p>说明：字段声明时若无初始化语句，会自动初始化到<a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-4.html#jls-4.12.5" target="_blank">默认值</a>，此默认值多数情况下符合需求。</p>
 
 <h3>避免<code class="prettyprint">interface</code>声明中多余的修饰词</h3>
 <pre class="prettyprint">

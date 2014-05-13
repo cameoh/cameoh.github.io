@@ -13,8 +13,13 @@ pre {
   background-color:#FAFAFA;
   overflow:auto;
 }
+.head-block {
+  border: 1px solid black;
+  background-color:#D3D3D3;
+  padding: 1em 1em;
+}
 .container{
-   max-width:800px;
+   max-width:48em;
    margin: 0 auto;
 }
 </style>
@@ -22,6 +27,10 @@ pre {
 <body onload="prettyPrint()">
 
 <div class="container">
+<div class="head-block">
+本文介绍一些<a href="http://google-styleguide.googlecode.com/svn/trunk/javaguide.html" target="_blank">Google Java Style</a>没有讲到的Java编码风格注意事项
+</div>
+
 <h3>成员变量初始化</h3>
 <pre class="prettyprint">
 // 不推荐写法：

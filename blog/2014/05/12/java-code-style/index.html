@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<link href="../../../../../../css/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+<script src="../../../../../../js/google-code-prettify/prettify.js"></script>
+<style>
+pre {
+  background-color:#FAFAFA;
+  overflow:auto;
+}
+.container{
+   max-width:800px;
+   margin: 0 auto;
+}
+</style>
+</head>
+<body onload="prettyPrint()">
+
+<div class="container">
+<h3>成员变量初始化</h3>
+<pre class="prettyprint">
+// 不推荐写法：
+public class MyClass {
+  private int numberOfItems = 0;
+  private boolean flag = false;
+  private String title = null;
+  ...
+}
+</pre>
+<pre class="prettyprint">
+// 推荐写法：
+public class MyClass {
+  private int numberOfItems;
+  private boolean flag;
+  private String title;
+  ...
+}
+</pre>
+<p>说明：成员变量声明时若无初始化语句，会自动初始化到<a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-4.html#jls-4.12.5" target="_blank">默认值</a>，此默认值多数情况下符合需求。</p>
+
+<h3>避免<code class="prettyprint">interface</code>声明中多余的修饰词</h3>
+<pre class="prettyprint">
+// 不推荐写法：
+public class MyClass {
+  public abstract static interface MyInterface {
+    public void doSomething();
+  }
+  ...
+}
+</pre>
+<pre class="prettyprint">
+// 推荐写法：
+public class MyClass {
+  public interface MyInterface {
+    void doSomething();
+  }
+  ...
+}
+</pre>
+<p>说明：所有的<code class="prettyprint">interface</code>都隐式地是<code class="prettyprint">abstract</code>且<code class="prettyprint">static</code>的，<code class="prettyprint">interface</code>中所有的方法声明都隐式地是<code class="prettyprint">public</code>的，对它们添加这类修饰词只会增加阅读代码的难度。</p>
+
+<h3>尽可能使用增强<code class="prettyprint">for</code>循环，在需要用到下标无法使用时应缩小下标变量的作用域</h3>
+<pre class="prettyprint">
+// 未最小化变量作用域的写法
+void f(int[] widthArray, int[] heightArray) {
+  int length = widthArray.length;
+  for (int i = 0; i < length; i++) {
+    // 使用 widthArray[i] 和 heightArray[i] 做计算
+  }
+  // length变量泄露到了此作用域
+  ...
+}
+</pre>
+<pre class="prettyprint">
+// 推荐写法：
+void f(int[] widthArray, int[] heightArray) {
+  for (int i = 0, length = widthArray.length; i < length; i++) {
+    // 使用 widthArray[i] 和 heightArray[i] 做计算
+  }
+  // length变量自动失效
+  ...
+}
+</pre>
+
+<h3>只有在不使用<code class="prettyprint">this</code>关键词会导致错误或混淆时才使用它</h3>
+<pre class="prettyprint">
+public class MyClass {
+  private int number;
+  public int getNumber() {
+    return number; // 此处不使用this
+  }
+  public void setNumber(int number) {
+    this.number = number; // 必须依靠this区分成员变量与局部变量时，使用this
+  }
+}
+</pre>
+</div>
+</body>
+</html>

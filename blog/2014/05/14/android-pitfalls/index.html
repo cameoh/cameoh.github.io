@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<link href="../../../../../../css/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+<script src="../../../../../../js/google-code-prettify/prettify.js"></script>
+<style>
+pre {
+  background-color:#FAFAFA;
+  overflow:auto;
+}
+.head-block {
+  border: 1px solid black;
+  background-color:#D3D3D3;
+  padding: 1em 1em;
+}
+.container{
+   max-width:48em;
+   margin: 0 auto;
+}
+</style>
+</head>
+<body onload="prettyPrint()">
+
+<div class="container">
+<div class="head-block">
+本文介绍一些Android开发中遇到的坑
+</div>
+
+<h3><code class="prettyprint">RemoteViews</code>的bug</h3>
+
+<p>在通知栏通知中显示自定义视图，需要用到<code class="prettyprint">RemoteViews</code>这个类。版本上线后发现在Android 2.3及以下系统，收到的通知是空白的。搜索发现这是一个谷歌官方<a href="https://code.google.com/p/android/issues/detail?id=30495" target="_blank">记录在案</a>的bug。解决办法是用以下方法绕过去：</p>
+<pre class="prettyprint">
+notification = builder.build();
+notification.contentView = contentView;
+</pre>
+<p>之前还此bug在官方文档中没有说明。对于这类问题，目前看来只能依靠程序员的经验再加全面的测试来尽可能地避免。</p>
+
+<h3>在<code class="prettyprint">RelativeLayout</code>中使用<code class="prettyprint">&lt;include/&gt;</code></h3>
+
+<p><a href="http://developer.android.com/training/improving-layouts/reusing-layouts.html" target="_blank"><code class="prettyprint">&lt;include/&gt;</code></a>是一种复用布局文件的方法，但是在<code class="prettyprint">RelativeLayout</code>中使用它，会出现<code class="prettyprint">android:layout_below</code>等相对布局代码失效的现象。解决办法是在用<code class="prettyprint">&lt;include/&gt;</code>方法包含进来的布局上添加<code class="prettyprint">android:layout_width</code>和<code class="prettyprint">android:layout_height</code>。
+
+<h3><code class="prettyprint">LayoutInflater</code></h3>
+
+</div>
+</body>
+</html>

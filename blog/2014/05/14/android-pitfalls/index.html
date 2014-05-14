@@ -38,11 +38,11 @@ pre {
 notification = builder.build();
 notification.contentView = contentView;
 </pre>
-<p>之前还此bug在官方文档中没有说明。对于这类问题，目前看来只能依靠程序员的经验再加全面的测试来尽可能地避免。</p>
+<p>此bug在官方文档中没有说明。对于这类问题，目前看来只能依靠程序员的经验再加全面的测试来尽可能地避免。</p>
 
 <h3>在<code class="prettyprint">RelativeLayout</code>中使用<code class="prettyprint">&lt;include/&gt;</code></h3>
 
-<p><a href="http://developer.android.com/training/improving-layouts/reusing-layouts.html" target="_blank"><code class="prettyprint">&lt;include/&gt;</code></a>是一种复用布局文件的方法，但是在<code class="prettyprint">RelativeLayout</code>中使用它，会出现<code class="prettyprint">android:layout_below</code>等相对布局代码失效的现象。解决办法是在用<code class="prettyprint">&lt;include/&gt;</code>方法包含进来的布局上添加<code class="prettyprint">android:layout_width</code>和<code class="prettyprint">android:layout_height</code>。
+<p><a href="http://developer.android.com/training/improving-layouts/reusing-layouts.html" target="_blank"><code class="prettyprint">&lt;include/&gt;</code></a>是一种复用布局文件的方法，但是在<code class="prettyprint">RelativeLayout</code>中使用它，会出现<code class="prettyprint">android:layout_below</code>等布局代码失效的现象。解决办法是在包含进来的布局上添加<code class="prettyprint">android:layout_width</code>和<code class="prettyprint">android:layout_height</code>属性。根据谷歌官网的<a href="https://code.google.com/p/android/issues/detail?id=2863" target="_blank">讨论</a>，最早提出这一解决办法的开发者是通过分析Android源代码得到的，可见在必要的时候能够深入源码还是有很大用处的。
 
 <h3><code class="prettyprint">LayoutInflater</code></h3>
 

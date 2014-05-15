@@ -51,8 +51,32 @@ notification.contentView = contentView;
 public View inflate (int resource, ViewGroup root)
 public View inflate (int resource, ViewGroup root, boolean attachToRoot)
 </pre>
-<p>在创建的视图有明确的父视图的情况下，必须传入父视图（上述方法的第二个参数），不能传<code class="prettyprint">null</code>。</p>
-
+<p>在创建的视图有明确的父视图的情况下，必须传入父视图（上述方法的第二个参数），不能传<code class="prettyprint">null</code>。比如在各种<code class="prettyprint">Adapter</code>实现类的<code class="prettyprint">getView</code>方法中：</p>
+<pre class="prettyprint">
+// 错误的写法：
+@Override
+public View getView(int position, View convertView, ViewGroup parent) {
+  if (convertView == null) {
+    // 错误：没有传入父视图
+    convertView = inflater.inflate(R.layout.list_item, null);
+    ...
+  }
+  return convertView;
+}
+</pre>
+<pre class="prettyprint">
+// 正确的写法：
+@Override
+public View getView(int position, View convertView, ViewGroup parent) {
+  if (convertView == null) {
+    // 传入父视图
+    convertView = inflater.inflate(R.layout.list_item, parent, false);
+    ...
+  }
+  return convertView;
+}
+</pre>
+<p>不传入父视图会导致布局文件中的某些属性失效。在视图比较简单的情况下甚至可能不会显现出来，但其实这时已经埋下隐患了。</p>
 </div>
 </body>
 </html>

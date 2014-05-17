@@ -109,6 +109,19 @@ void f(int[] widthArray, int[] heightArray) {
 }
 </pre>
 
+<h3>尽可能利用自动装箱，必须要手动装箱时，使用包装类的<code class="prettyprint">valueOf</code>静态方法，不要使用<code class="prettyprint">new</code>创建新对象</h3>
+<pre class="prettyprint">
+void addValuesToMap(Map&lt;Integer, String&gt; map) {
+  map.put(new Integer(0), "some value"); // 不推荐，应使用自动装箱
+  map.put(0, "some value"); // 正确写法
+  
+  // 需要手动装箱时（极少情况下）：
+  Integer i = new Integer(0); // 不推荐，不应使用new
+  i = Integer.valueOf(0); // 正确，使用valueOf方法
+}
+</pre>
+<p>说明：包装类的<code class="prettyprint">valueOf</code>静态方法会缓存一定范围内的值对象（能做缓存的原因是包装类被设计为不可变的），比用<code class="prettyprint">new</code>的方式开销小。</p>
+
 <h3>只有在不使用<code class="prettyprint">this</code>关键词会导致错误或混淆时才使用它</h3>
 <pre class="prettyprint">
 public class MyClass {

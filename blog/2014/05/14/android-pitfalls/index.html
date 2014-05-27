@@ -10,9 +10,6 @@
 <link href="../../../../../../css/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
 <script src="../../../../../../js/google-code-prettify/prettify.js"></script>
 <style>
-body {
-  font-size: 14px;
-}
 pre {
   background-color: #FAFAFA;
   overflow: auto;
@@ -42,6 +39,16 @@ notification = builder.build();
 notification.contentView = contentView;
 </pre>
 <p>此bug在官方文档中没有说明。对于这类问题，目前看来只能依靠开发者的经验加全面的测试来尽可能地避免。</p>
+
+<h3><code class="prettyprint">convertView</code>类型错误</h3>
+
+<p>同样是低版本上才出现的问题。<code class="prettyprint">Adapter</code>有如下方法：</p>
+<pre class="prettyprint">
+public abstract int getViewTypeCount ()
+public abstract int getItemViewType (int position)
+public abstract View getView (int position, View convertView, ViewGroup parent)
+</pre>
+<p>根据文档，在正确地重写了前两个方法后，第三个方法的第二个参数传入的<code class="prettyprint">convertView</code>应该有正确的类型。但是测试发现在低版本系统上传入的<code class="prettyprint">convertView</code>类型是错误的。此时必须检查传入参数的类型。造成此现象的原因是低版本<code class="prettyprint">ListView</code>相关类中复用视图的实现有问题。</p>
 
 <h3>在<code class="prettyprint">RelativeLayout</code>中使用<code class="prettyprint">&lt;include/&gt;</code></h3>
 

@@ -73,7 +73,7 @@ public class MyClass {
 </pre>
 <p>说明：所有<code class="prettyprint">interface</code>都隐式地是<code class="prettyprint">abstract</code>且<code class="prettyprint">static</code>的，<code class="prettyprint">interface</code>中所有的方法声明都隐式地是<code class="prettyprint">public</code>的，对它们添加这类修饰词只会增加阅读代码的难度。</p>
 
-<h3>使用<code class="prettyprint">instanceof</code>关键词不要做非空检查</h3>
+<h3>使用<code class="prettyprint">instanceof</code>关键词避免做多余的非空检查</h3>
 <pre class="prettyprint">
 void f(CharSequence s) {
   // 这里的非空检查是多余的

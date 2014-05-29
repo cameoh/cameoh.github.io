@@ -54,6 +54,10 @@ public abstract View getView (int position, View convertView, ViewGroup parent)
 
 <p><a href="http://developer.android.com/training/improving-layouts/reusing-layouts.html" target="_blank"><code class="prettyprint">&lt;include/&gt;</code></a>提供了一种复用布局文件的方法，但是在<code class="prettyprint">RelativeLayout</code>中使用它，会出现<code class="prettyprint">android:layout_below</code>等布局代码失效的现象。解决办法是在include元素上添加<code class="prettyprint">android:layout_width</code>和<code class="prettyprint">android:layout_height</code>属性。从谷歌官网上的<a href="https://code.google.com/p/android/issues/detail?id=2863" target="_blank">讨论</a>来看，最早提出这一解决办法的开发者是通过分析Android源代码得到的，可见在必要的时候能够深入源码还是有很大用处的。
 
+<h3>单个点9图应放入drawable-nodpi文件夹</h3>
+
+<p>说明：单个点9图如果放入drawable文件夹，系统会默认其为mdpi资源，在高dpi手机上会把它先按比例放大再使用，从而破坏点9图效果。其实对于一般的点9图使用场景（如圆角按钮背景图），严谨的做法仍然是做一套适配多屏幕密度的资源，分别放入对应的资源文件夹。</p>
+
 <h3>使用<code class="prettyprint">inflate</code>方法创建视图要传入父视图</h3>
 
 <p><code class="prettyprint">LayoutInflater</code>等类提供了若干从布局文件创建视图的方法。如：</p>

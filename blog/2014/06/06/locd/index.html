@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>locd</title>
+<link href="../../../../../../css/google-code-prettify/prettify.css" rel="stylesheet" />
+<script src="../../../../../../js/google-code-prettify/prettify.js"></script>
+<style>
+pre {
+  background-color: #FAFAFA;
+  overflow: auto;
+}
+.head-block {
+  background-color: #D3D3D3;
+  padding: 1em;
+}
+.container{
+  max-width: 48em;
+  margin: 0 auto;
+}
+img{
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+</style>
+</head>
+<body onload="prettyPrint()">
+
+<div class="container">
+<div class="head-block">
+本文介绍locd这个工具
+</div>
+
+<h3>Lines of code</h3>
+<p>Lines of code是一个粗略的衡量程序大小的指标。因为不同语言的表达能力不同，而且绝大多数时候优秀的代码比糟糕的代码简短，所以代码行数作为一个绝对值的参考意义很小。但是，一个项目内同一种语言的所有源代码文件的行数的分布，往往能传递一些关于这个项目代码质量的讯息。为了快速、直观的展示这一分布，我创建了locd（即lines of code distribution的首字母）这个工具。</p>
+
+<h3>开源项目比较</h3>
+<p>选取两大动态语言Python和Ruby的代表性web框架Django和Rails，看看它们的行数分布，先看Django：</p>
+<img src="../../../../../../img/django-loc.png" class="img-responsive center-block" title="Django" />
+<p>再看看Rails：</p>
+<img src="../../../../../../img/rails-loc.png" class="img-responsive center-block" title="Rails" />
+<p>可以发现两者代码的平均行数非常接近，最大行数Django小于Rails，但都没有超过3500行，且与紧跟的文件行数差距不大。</p>
+<p>再看看某知名国产PHP框架，结果就比较凶残了：</p>
+<img src="../../../../../../img/yii-loc.png" class="img-responsive center-block" title="yii" />
+<p>如果你的项目的行数分布图如上图一样呈Γ状，是时候重构了！</p>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'cameoh';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</body>
+</html>

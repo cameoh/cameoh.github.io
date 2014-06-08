@@ -52,7 +52,7 @@ public abstract View getView (int position, View convertView, ViewGroup parent)
 
 <h3>不要对<code class="prettyprint">ListView</code>使用<code class="prettyprint">wrap_content</code></h3>
 
-<p><code class="prettyprint">ListView</code>的设计决定了如果其宽度或高度被设置为<code class="prettyprint">wrap_content</code>，它会在layout过程中调用<code class="prettyprint">getView</code>方法获取所有子视图（不止一遍）以决定自己的大小，这会带来很多不好的副作用（性能问题只是之一）。具体可以看<code class="prettyprint">ListView</code>的作者的<a href="http://stackoverflow.com/questions/4270278/layout-width-of-a-listview" target="_blank">说法</a>。</p>
+<p><code class="prettyprint">ListView</code>的设计决定了如果其宽度或高度被设置为<code class="prettyprint">wrap_content</code>，它会在layout过程中调用<code class="prettyprint">getView</code>方法获取所有子视图（不止一遍）以决定自己的大小，这会带来很多不好的副作用（性能问题只是之一）。可以看看<code class="prettyprint">ListView</code>作者的<a href="http://stackoverflow.com/questions/4270278/layout-width-of-a-listview" target="_blank">说法</a>。</p>
 
 <h3>在<code class="prettyprint">RelativeLayout</code>中使用<code class="prettyprint">&lt;include/&gt;</code></h3>
 

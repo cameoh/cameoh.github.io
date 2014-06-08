@@ -50,6 +50,10 @@ public abstract View getView (int position, View convertView, ViewGroup parent)
 </pre>
 <p>根据文档，在正确地重写了前两个方法后，第三个方法的第二个参数传入的<code class="prettyprint">convertView</code>应该有正确的类型。但是测试发现在低版本系统上传入的<code class="prettyprint">convertView</code>类型是错误的。此时必须检查传入参数的类型。造成此现象的原因是低版本<code class="prettyprint">ListView</code>相关类中复用视图的实现有问题。</p>
 
+<h3>不要对<code class="prettyprint">ListView</code>使用<code class="prettyprint">wrap_content</code></h3>
+
+<p><code class="prettyprint">ListView</code>的设计决定了如果其宽度或高度被设置为<code class="prettyprint">wrap_content</code>，它会在layout过程中调用<code class="prettyprint">getView</code>方法获取所有子视图（不止一遍）以决定自己的大小，这会带来很多不好的副作用（性能问题只是之一）。具体可以看<code class="prettyprint">ListView</code>的作者的<a href="http://stackoverflow.com/questions/4270278/layout-width-of-a-listview" target="_blank">说法</a>。</p>
+
 <h3>在<code class="prettyprint">RelativeLayout</code>中使用<code class="prettyprint">&lt;include/&gt;</code></h3>
 
 <p><a href="http://developer.android.com/training/improving-layouts/reusing-layouts.html" target="_blank"><code class="prettyprint">&lt;include/&gt;</code></a>提供了一种复用布局文件的方法，但是在<code class="prettyprint">RelativeLayout</code>中使用它，会出现<code class="prettyprint">android:layout_below</code>等布局代码失效的现象。解决办法是在include元素上添加<code class="prettyprint">android:layout_width</code>和<code class="prettyprint">android:layout_height</code>属性。从谷歌官网上的<a href="https://code.google.com/p/android/issues/detail?id=2863" target="_blank">讨论</a>来看，最早提出这一解决办法的开发者是通过分析Android源代码得到的，可见在必要的时候能够深入源码还是有很大用处的。

@@ -77,7 +77,7 @@ public int[][] getCrossProduct(int[][] input) {
 <h3>Java</h3>
 <p>写一个线程安全、懒加载的单例，作为面试题可逐步提出要求，如先只要求写一个单例，再改造为懒加载的，再考虑线程安全。</p>
 
-<h3>Android相关</h3>
+<h3>Android内存泄漏</h3>
 <p>在一个<code class="prettyprint">Activity</code>中，为了节省加载大图片的开销，做以下处理：</p>
 <pre class="prettyprint">
 private static Drawable sBackground;
@@ -99,7 +99,14 @@ protected void onCreate(Bundle state) {
 </pre>
 <p>这样写有什么问题？</p>
 
-<h3></h3>
+<h3>Android视图框架、触摸事件处理</h3>
+<p>View hierarchy概念，视图树显示流程（先Measure，再Layout），调用的方法。触摸事件的处理流程，从Activity到父视图到子视图。</p>
+
+<h3>自定义视图控件</h3>
+<p>设计一个Section固定在顶部的<code class="prettyprint">ListView</code>，关键思路，是用继承还是用组合，API设计，可能遇到的问题。</p>
+
+<h3>设计引导图层</h3>
+<p>API设计能力，怎么方便使用者？实现思路，是起一个半透明的Activity，还是弹一个Dialog，还是其他？对可扩展性的考虑，以后需求需要在引导层做多步逻辑，应该怎么做。</p>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">

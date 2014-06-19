@@ -36,6 +36,11 @@ pre {
 svn blame main.cpp | cat -n
 </pre>
 
+<h3>移动一个无法打出其文件名的文件</h3>
+<pre class="prettyprint">
+mv `ls *.txt | head -1` /path/to/the/destination/
+</pre>
+
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'cameoh';

@@ -28,7 +28,7 @@ pre {
 
 <div class="container">
 <div class="head-block">
-本文记录工作中碰到的命令行使用例子
+本文记录碰到的命令行使用例子
 </div>
 
 <h3><code class="prettyprint">svn blame</code>显示行数</h3>
@@ -36,9 +36,9 @@ pre {
 svn blame main.cpp | cat -n
 </pre>
 
-<h3>移动一个无法打出其文件名的文件</h3>
+<h3>移动一个无法打出其文件名的文件，假设此文件是当前目录下匹配*.txt的第一个文件</h3>
 <pre class="prettyprint">
-mv `ls *.txt | head -1` /path/to/the/destination/
+mv `ls *.txt | head -1` destination
 </pre>
 
 <div id="disqus_thread"></div>

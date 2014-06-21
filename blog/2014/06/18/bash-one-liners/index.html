@@ -31,9 +31,9 @@ pre {
 本文记录碰到的命令行使用例子
 </div>
 
-<h3><code class="prettyprint">svn blame</code>显示行数</h3>
+<h3><code class="prettyprint">svn blame</code>显示某特定行，如第42行</h3>
 <pre class="prettyprint">
-svn blame main.cpp | cat -n
+svn blame main.cpp | cat -n | grep 42
 </pre>
 
 <h3>移动一个无法打出其文件名的文件，假设此文件是当前目录下匹配*.txt的第一个文件</h3>

@@ -57,7 +57,7 @@ public abstract View getView (int position, View convertView, ViewGroup parent)
 
 <h3>在<code class="prettyprint">RelativeLayout</code>中使用<code class="prettyprint">&lt;include/&gt;</code></h3>
 
-<p><a href="http://developer.android.com/training/improving-layouts/reusing-layouts.html" target="_blank"><code class="prettyprint">&lt;include/&gt;</code></a>提供了一种复用布局文件的方法，但是在<code class="prettyprint">RelativeLayout</code>中使用它，会出现<code class="prettyprint">android:layout_below</code>等布局代码失效的现象。解决办法是在include元素上添加<code class="prettyprint">android:layout_width</code>和<code class="prettyprint">android:layout_height</code>属性。从谷歌官网上的<a href="https://code.google.com/p/android/issues/detail?id=2863" target="_blank">讨论</a>来看，最早提出这一解决办法的开发者是通过分析Android源代码得到的，可见在必要的时候能够深入源码还是有很大用处的。
+<p><a href="http://developer.android.com/training/improving-layouts/reusing-layouts.html" target="_blank"><code class="prettyprint">&lt;include/&gt;</code></a>提供了一种复用布局文件的方法，但是在<code class="prettyprint">RelativeLayout</code>中使用它，会出现<code class="prettyprint">android:layout_below</code>等布局代码失效的现象。解决办法是在include元素上添加<code class="prettyprint">android:layout_width</code>和<code class="prettyprint">android:layout_height</code>属性。从谷歌官网上的<a href="https://code.google.com/p/android/issues/detail?id=2863" target="_blank">讨论</a>来看，最早提出这一解决办法的开发者是通过分析Android源代码得到的，可见在必要的时候能够深入源码还是有很大用处的。</p>
 
 <h3>单个点9图应放入drawable-nodpi文件夹</h3>
 

@@ -86,7 +86,7 @@ void populate() {
   ...
 }
 </pre>
-<p>说明如果<code class="prettyprint">ViewPager</code>当前没有被添加到Window中，在<code class="prettyprint">setAdapter(PagerAdapter)</code>返回前<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法不会被执行。此时方法的调用是异步的，需要等到消息队列的下一轮。如果在<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法中做一些初始化工作，在<code class="prettyprint">setAdapter(PagerAdapter)</code>方法返回后这些初始化代码youkeneng 还没有被执行。一个被触发的方法调用是同步的还是异步的，一般在文档中没有说明。如果在代码实现中需要知道这些细节，阅读源代码是最好的选择。</p>
+<p>这说明如果<code class="prettyprint">ViewPager</code>当前没有被添加到Window中，在<code class="prettyprint">setAdapter(PagerAdapter)</code>返回前<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法不会被执行。这种情况下调用是异步的。如果在<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法中做一些初始化工作，在<code class="prettyprint">setAdapter(PagerAdapter)</code>方法返回后这些初始化代码有可能还没有被执行，如果实现依赖于这个错误的假设，就会出错。一个被触发的方法调用是同步的还是异步的，一般在文档中没有说明。如果在实现中需要知道这些细节，阅读源代码是最好的选择。</p>
 
 <h3>单个点9图应放入drawable-nodpi文件夹</h3>
 <p>点9图如果放入drawable文件夹，系统会默认其为mdpi资源，在高dpi手机上会把它先按比例放大再使用，从而破坏点9图效果。其实对于一般的点9图使用场景（如圆角按钮背景图），严谨的做法仍然是做一套适配多屏幕密度的资源，分别放入对应的资源文件夹。</p>

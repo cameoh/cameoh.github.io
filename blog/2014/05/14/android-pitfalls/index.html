@@ -60,7 +60,7 @@ public abstract View getView (int position, View convertView, ViewGroup parent)
 <p><a href="http://developer.android.com/training/improving-layouts/reusing-layouts.html" target="_blank"><code class="prettyprint">&lt;include/&gt;</code></a>提供了一种复用布局文件的方法，但是在<code class="prettyprint">RelativeLayout</code>中使用它，会出现<code class="prettyprint">android:layout_below</code>等布局代码失效的现象。解决办法是在include元素上添加<code class="prettyprint">android:layout_width</code>和<code class="prettyprint">android:layout_height</code>属性。从谷歌官网上的<a href="https://code.google.com/p/android/issues/detail?id=2863" target="_blank">讨论</a>来看，最早提出这一解决办法的开发者是通过分析Android源代码得到的，可见在必要的时候能够深入源码还是有很大用处的。</p>
 
 <h3>方法调用、返回的顺序，同步vs异步</h3>
-<p>一种很常见的场景是一个方法的调用会触发另一个方法，为了说明方便我们假设调用a方法会触发b方法。在不同的实现下，b方法的调用时机会有微妙的差异。一种情况是b方法的调用完全包含在a方法的调用之内，a方法返回前b方法已经调用完毕，我们称之为同步的调用；另一种情况是b方法的调用在a方法返回之后，我们称之为异步的调用。异步调用下，b方法甚至不会在a方法返回后立即被调用，而是要等到下一轮消息队列被处理时才会被调用。同步调用的例子可以看<code class="prettyprint">View</code>类上的<code class="prettyprint">performClick</code>方法：</p>
+<p>一种很常见的场景是一个方法的调用会触发另一个方法，为了说明方便我们设调用a方法会触发b方法。在不同的实现下，b方法的调用时机会有微妙的差异。一种情况是b方法的调用完全包含在a方法的调用之内，a方法返回前b方法已经调用完毕，我们称之为同步的调用；另一种情况是b方法的调用在a方法返回之后，我们称之为异步的调用。异步调用下，b方法甚至不会在a方法返回后立即被调用，而是要等到下一轮消息队列被处理时。同步调用的例子可以看<code class="prettyprint">View</code>类上的<code class="prettyprint">performClick()</code>方法：</p>
 <pre class="prettyprint">
 public boolean performClick() {
   sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);
@@ -73,18 +73,25 @@ public boolean performClick() {
   return false;
 }
 </pre>
-<p>可以看到调用<code class="prettyprint">performClick</code>所触发的<code class="prettyprint">onClick</code>方法是同步被调用的。再看看<code class="prettyprint">ViewPager</code>的<code class="prettyprint">setCurrentItem</code>方法：</p>
+<p>可以发现调用<code class="prettyprint">performClick()</code>所触发的<code class="prettyprint">onClick(View)</code>方法是同步的。再看看<code class="prettyprint">ViewPager</code>的<code class="prettyprint">setAdapter(PagerAdapter)</code>方法，调用它会触发<code class="prettyprint">PagerAdapter</code>上的<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法。这个调用是同步还是异步的呢？阅读<code class="prettyprint">ViewPager</code>源代码，可以看到在<code class="prettyprint">setAdapter(PagerAdapter)</code>内部使用的<code class="prettyprint">populate()</code>方法中，有这样的语句：</p>
 <pre class="prettyprint">
-
+void populate() {
+  ...
+  // Also, don't populate until we are attached to a window.  This is to
+  // avoid trying to populate before we have restored our view hierarchy
+  // state and conflicting with what is restored.
+  if (getWindowToken() == null) {
+    return;
+  }
+  ...
+}
 </pre>
-<p>可以发现setCurrentItem(i)触发的instantiateItem(i)调用是异步的，需要等到下一轮消息队列才会被调用。因此，如果在PagerAdapter的instantiateItem方法中做一些初始化工作，在setCurrentItem返回后立刻访问会报错。一个被触发的方法的调用是同步的还是异步的，大多数在文档中没有说明。如果在你的代码实现中需要知道这些细节，阅读源代码是最好的选择。</p>
+<p>说明如果<code class="prettyprint">ViewPager</code>当前没有被添加到Window中，在<code class="prettyprint">setAdapter(PagerAdapter)</code>返回前<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法不会被执行。此时方法的调用是异步的，需要等到消息队列的下一轮。如果在<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法中做一些初始化工作，在<code class="prettyprint">setAdapter(PagerAdapter)</code>方法返回后这些初始化代码youkeneng 还没有被执行。一个被触发的方法调用是同步的还是异步的，一般在文档中没有说明。如果在代码实现中需要知道这些细节，阅读源代码是最好的选择。</p>
 
 <h3>单个点9图应放入drawable-nodpi文件夹</h3>
-
 <p>点9图如果放入drawable文件夹，系统会默认其为mdpi资源，在高dpi手机上会把它先按比例放大再使用，从而破坏点9图效果。其实对于一般的点9图使用场景（如圆角按钮背景图），严谨的做法仍然是做一套适配多屏幕密度的资源，分别放入对应的资源文件夹。</p>
 
 <h3>使用<code class="prettyprint">inflate</code>方法创建视图要传入父视图</h3>
-
 <p><code class="prettyprint">LayoutInflater</code>等类提供了若干从布局文件创建视图的方法。如：</p>
 <pre class="prettyprint">
 public View inflate (int resource, ViewGroup root)

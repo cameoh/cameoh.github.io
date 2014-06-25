@@ -51,8 +51,8 @@ public abstract View getView (int position, View convertView, ViewGroup parent)
 </pre>
 <p>根据文档，在正确地重写了前两个方法后，第三个方法的第二个参数传入的<code class="prettyprint">convertView</code>应该有正确的类型。但是测试发现在低版本系统上传入的<code class="prettyprint">convertView</code>类型是错误的。此时必须检查传入参数的类型。造成此现象的原因是低版本<code class="prettyprint">ListView</code>相关类中复用视图的实现有问题。</p>
 
-<h3><code class="prettyprint">ViewFlipper</code>在无锁屏时resume无法自动开始滚动</h3>
-<p>这也是一个<a href="https://code.google.com/p/android/issues/detail?id=38298" target="_blank">登记在案</a>的bug，解决办法是手动维护<code class="prettyprint">ViewFlipper</code>的滚动。</p>
+<h3><code class="prettyprint">ViewFlipper</code>的bug</h3>
+<p><code class="prettyprint">ViewFlipper</code>是SDK提供的一个可以显示多个视图来回切换的类。它会在屏幕熄灭时暂停切换动画，等到下次屏幕点亮时再继续。但是SDK的实现有一个bug，如果屏幕再次点亮时手机没有锁屏（一种情况是用户没有设置锁屏，也可能是屏幕熄灭时间很短，还没有触发锁屏），<code class="prettyprint">ViewFlipper</code>就不再播放切换动画。这也是一个<a href="https://code.google.com/p/android/issues/detail?id=38298" target="_blank">登记在案</a>的bug，解决办法是手动维护<code class="prettyprint">ViewFlipper</code>动画的开始、暂停、继续。</p>
 
 <h3>不要对<code class="prettyprint">ListView</code>使用<code class="prettyprint">wrap_content</code></h3>
 <p><code class="prettyprint">ListView</code>的设计决定了如果其宽度或高度被设置为<code class="prettyprint">wrap_content</code>，它会在layout过程中调用<code class="prettyprint">getView</code>方法获取所有子视图（不止一遍）以决定自己的大小，这会带来很多不好的副作用（性能问题只是之一）。可以看看<code class="prettyprint">ListView</code>作者的<a href="http://stackoverflow.com/questions/4270278/layout-width-of-a-listview" target="_blank">说法</a>。</p>

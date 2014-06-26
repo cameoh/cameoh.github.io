@@ -111,13 +111,13 @@ void f(int[] widthArray, int[] heightArray) {
 
 <h3>尽可能利用自动装箱，必须要手动装箱时，使用包装类的<code class="prettyprint">valueOf</code>静态方法，不要使用<code class="prettyprint">new</code>创建新对象</h3>
 <pre class="prettyprint">
-void modifyMap(Map&lt;Integer, Integer&gt; map) {
-  map.put(new Integer(0), new Integer(1)); // 不推荐，应使用自动装箱
-  map.put(0, 1); // 正确写法
+void modifyList(List&lt;Integer&gt; list) {
+  list.add(new Integer(0)); // 不推荐，应使用自动装箱
+  list.add(0); // 正确写法
   
   // remove方法是重载的，故必须手动装箱，应使用valueOf方法
-  map.remove(new Integer(1)); // 不推荐，不应使用new
-  map.remove(Integer.valueOf(1)); // 正确，使用valueOf方法
+  list.remove(new Integer(0)); // 不推荐，不应使用new
+  list.remove(Integer.valueOf(0)); // 正确，使用valueOf方法
 }
 </pre>
 <p>说明：包装类的<code class="prettyprint">valueOf</code>静态方法会缓存一定范围内的值对象（能做缓存的原因是包装类被设计为不可变的），比用<code class="prettyprint">new</code>的方式开销小。</p>

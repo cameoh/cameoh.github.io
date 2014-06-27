@@ -32,8 +32,43 @@ pre {
 介绍我在项目中碰到的一些细小的改进的点，谈不上最佳实践，叫“更好的实践”吧
 </div>
 
+<h3>如何在发布一个Android应用时去掉日志</h3>
+<p>开发时打印日志，发布的应用不打印日志，这是几乎每个Android项目都会有的需求。有的会写一个工具类，所有的日志打印调用通过静态方法来调用，在此方法里做判断：</p>
+<pre class="prettyprint">
+import android.util.Log;
+
+public class LogUtils {
+  public static final boolean IS_LOG_ON = true;
+
+  public static void log(String tag, String msg) {
+    if (IS_LOG_ON) {
+      Log.d(tag, msg);
+    }
+  }
+}
+</pre>
+<p>这种做法的问题是：在release版本中仍然存在打印日志的开销，如下面的代码所示：</p>
+<pre class="prettyprint">
+void someMethod(int index){
+  LogUtils.log("tag", "index: " + index); // 拼了！
+  ...
+}
+</pre>
+<p>release版本在这里虽然不会打印日志，但是仍然需要new一个StringBuilder对象来拼接字符串，这是有开销的。最好的办法应该是在编译期就彻底删除掉日志打印的调用，在iOS里面可以定义宏来方便的实现在编译期删除日志。Android也有这样的工具：<a href="http://proguard.sourceforge.net" target="_blank">ProGuard</a>。在ProGuard的配置文件里可以声明某些方法没有副作用，这样在打包release版本apk时ProGuard会自动帮你删除掉这些方法。这样在代码中可以直接使用<code class="prettyprint">android.util.Log</code>的日志方法，然后在ProGuard配置文件中添加下段代码：</p>
+<pre class="prettyprint">
+-assumenosideeffects class android.util.Log {
+  public static boolean isLoggable(java.lang.String, int);
+  public static int v(...);
+  public static int i(...);
+  public static int w(...);
+  public static int d(...);
+  public static int e(...);
+}
+</pre>
+<p>就可以实现release版本无日志。</p>
+
 <h3>变量名要能区分视图和model</h3>
-Android代码中有各种视图类，这些类的实例变量取名时最好以View结尾（或其他能清晰表明视图属性的单词，如Button）。这样能避免误把视图对象当作model对象。下面的例子说明了随意起名可能导致的错误：
+<p>Android代码中有各种视图类，这些类的实例变量取名时最好以View结尾（或其他能清晰表明视图属性的单词，如Button）。这样能避免误把视图对象当作model对象。下面的例子说明了随意起名可能导致的错误：</p>
 <pre class="prettyprint">
 public class MainActivity {
 

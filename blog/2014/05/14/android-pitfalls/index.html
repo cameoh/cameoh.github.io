@@ -23,6 +23,12 @@ pre {
    max-width: 48em;
    margin: 0 auto;
 }
+img{
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
 </style>
 </head>
 <body onload="prettyPrint()">
@@ -42,7 +48,6 @@ notification.contentView = contentView;
 <p>此bug在官方文档中没有说明。对于这类问题，目前看来只能依靠开发者的经验加全面的测试来尽可能地避免。</p>
 
 <h3><code class="prettyprint">convertView</code>类型错误</h3>
-
 <p>同样是低版本上会出现的问题。<code class="prettyprint">Adapter</code>有如下方法：</p>
 <pre class="prettyprint">
 public abstract int getViewTypeCount ()
@@ -88,6 +93,26 @@ void populate() {
 }
 </pre>
 <p>这说明如果<code class="prettyprint">ViewPager</code>当前没有被添加到Window中，在<code class="prettyprint">setAdapter(PagerAdapter)</code>返回前<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法不会被执行。这种情况下调用是异步的。如果在<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法中做一些初始化工作，在<code class="prettyprint">setAdapter(PagerAdapter)</code>方法返回后这些初始化代码有可能还没有被执行，不能对调用顺序做错误的假设。一个被触发的方法调用是同步的还是异步的，一般在文档中没有说明。如果在实现中需要知道这些细节，阅读源码是最好的选择。</p>
+
+<h3><code class="prettyprint">ListView</code>在Motorola Android 2.3手机上背景为灰色</h3>
+<p>这个问题只在Motorola Android 2.3系统的手机上出现，即在<code class="prettyprint">ListView</code>自身的高度大于其含有的所有行的总高度时，无法显示通过<code class="prettyprint">android:background</code>属性（或者通过代码）指定的背景，而显示为带阴影效果的灰色背景。比如下面的layout</p>
+<pre class="prettyprint">
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;ListView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#90EE90" /&gt;
+</pre>
+<p>设置了背景色，正确的效果是这样的：</p>
+<img src="../../../../../../img/green-background.png" title="淡绿色背景"/>
+<p>在Motorola Android 2.3的手机上效果为：</p>
+<img src="../../../../../../img/motorola.png" title="灰色带阴影背景"/>
+<p>这是因为Motorola修改了Android系统内置主题，必须要额外设置<code class="prettyprint">ListView</code>的属性</p>
+<pre class="prettyprint">
+android:overScrollFooter="@null"
+</pre>
+<p>才能显示出背景。根据<a href="http://stackoverflow.com/questions/7245923/listview-background-is-grey-on-droid-3" target="_blank">stackoverflow</a>上的讨论，是有人在Motorola的开发者论坛提出这个问题后，Motorola的工程师给出的其中原因和解决办法。</p>
 
 <h3>单个点9图应放入drawable-nodpi文件夹</h3>
 <p>点9图如果放入drawable文件夹，系统会默认其为mdpi资源，在高dpi手机上会把它先按比例放大再使用，从而破坏点9图效果。其实对于一般的点9图使用场景（如圆角按钮背景图），严谨的做法仍然是做一套适配多屏幕密度的资源，分别放入对应的资源文件夹。</p>

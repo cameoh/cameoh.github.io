@@ -29,21 +29,25 @@ pre {
 
 <div class="container">
 <div class="head-block">
-介绍我在实际项目中碰到的一些细小的改进的点，谈不上最佳实践，姑且叫“更好的实践”吧
+介绍我在项目中碰到的一些细小的改进的点，谈不上最佳实践，叫“更好的实践”吧
 </div>
 
-<h3>变量名要区分视图和model</h3>
-
+<h3>变量名要能区分视图和model</h3>
+Android代码中有各种视图类，这些类的实例变量取名时最好以View结尾（或其他能清晰表明视图属性的单词，如Button）。这样能避免误把视图对象当作model对象。
 <pre class="prettyprint">
 public class MainActivity {
+
   private TextView mPrize;
 
+  private TextView mPrizeView; // 推荐：变量名以View结尾，表明自己是视图
   ...
 
-  private String getPrizeString() {
+  private String getPrize() {
     return mPrize + "元"; // 出错了！把视图误当作了model
   }
 
+  ...
+  
 }
 </pre>
 

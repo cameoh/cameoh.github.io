@@ -54,7 +54,7 @@ void someMethod(int index){
   ...
 }
 </pre>
-<p>release版本在这里虽然不会打印日志，但是仍然会new一个<code class="prettyprint">StringBuilder</code>对象来拼接字符串，这是有开销的。最好的办法是在编译期就彻底删除掉日志打印的调用。Android提供了实现这个功能的工具：<a href="http://proguard.sourceforge.net" target="_blank">ProGuard</a>。在ProGuard的配置文件里可以声明某些方法没有副作用，在打包release版本时ProGuard会自动帮你删除掉这些方法。这样我们可以在代码中直接使用<code class="prettyprint">android.util.Log</code>打印日志，然后在ProGuard配置文件中添加下段代码：</p>
+<p>release版本在这里虽然不会打印日志，但是仍然会new一个<code class="prettyprint">StringBuilder</code>对象来拼接字符串，这是有开销的。最好的办法是在编译期就彻底删除掉日志打印的调用。Android提供了实现这个功能的工具：<a href="http://proguard.sourceforge.net" target="_blank">ProGuard</a>。在ProGuard的配置文件里可以声明某些方法没有副作用，在打包release版本时ProGuard会自动帮你删除掉这些方法。这样我们可以在代码中直接使用<code class="prettyprint">android.util.Log</code>打印日志，然后在ProGuard配置文件中添加<a href="http://proguard.sourceforge.net/manual/examples.html#logging" target="_blank">下段代码</a>：</p>
 <pre class="prettyprint">
 -assumenosideeffects class android.util.Log {
   public static boolean isLoggable(java.lang.String, int);

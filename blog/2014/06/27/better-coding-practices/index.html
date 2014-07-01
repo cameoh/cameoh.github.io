@@ -67,6 +67,18 @@ void someMethod(int index){
 </pre>
 <p>就可以实现release版本无日志。</p>
 
+<h3>言贵简，文贵短</h3>
+<p>在有选择时，使用尽可能简短的写法、API：</p>
+<pre class="prettyprint">
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(Bundle savedInstanceState);
+  TextView textView = findViewById(R.id.title);
+  textView.setText(getString(R.string.title)); // 应使用更简短的API
+  textView.setText(R.string.title); // 简短API
+}
+</pre>
+
 <h3>变量名要能区分视图和model</h3>
 <p>Android代码中有各种视图类，这些类的实例变量取名时最好以View结尾（或其他能清晰表明视图属性的单词，如Button）。这样能避免误把视图对象当作model对象。下面的例子说明了随意起名可能导致的错误：</p>
 <pre class="prettyprint">

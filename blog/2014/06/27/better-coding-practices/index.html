@@ -74,8 +74,22 @@ void someMethod(int index){
 protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(Bundle savedInstanceState);
   TextView textView = findViewById(R.id.title);
-  textView.setText(getString(R.string.title)); // 应使用更简短的API
-  textView.setText(R.string.title); // 简短API
+  textView.setText(getString(R.string.title)); // 应使用更简洁的API
+  textView.setText(R.string.title); // 简洁，更易读
+  
+  /*
+   * 拿到一个Editor，更新一个值
+   */
+  Editor editor = getSharedPreferences("my preference", Context.MODE_PRIVATE)
+      .edit();
+  editor.putString("some key", "some value");
+  editor.commit();
+  
+  /*
+   * 使用链式API，更简洁
+   */
+  getSharedPreferences("my preference", Context.MODE_PRIVATE).edit()
+      .putString("some key", "some value").commit();
 }
 </pre>
 

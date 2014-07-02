@@ -99,7 +99,7 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 </pre>
 
-<h3>要阅读并重视API文档</h3>
+<h3>阅读并重视API文档</h3>
 <p>有这么一行代码：</p>
 <pre class="prettyprint">
 new DecimalFormat("#0.00").format(2.34);
@@ -108,7 +108,12 @@ new DecimalFormat("#0.00").format(2.34);
 <pre class="prettyprint">
 DecimalFormat.getInstance(Locale.US).format(2.34);
 </pre>
-<p>第一种写法在Lint下不会报警，在大多数手机上也能正确运行。没有类似经验的人很难想到这里不指定Locale会出问题。另一方面，文档强烈地建议了使用指定Locale的方法来创建对象。所以，应该重视文档的作用。</p>
+<p>第一种写法在Lint下不会报警，在大多数手机上也能正确运行。没有类似经验的人很难想到这里不指定Locale会出问题。另一方面，文档强烈地建议了使用指定Locale的方法来创建对象。所以，我们要重视文档。单就Locale这点来说，还有很多方法使用系统默认Locale，一般在API文档中都有说明。比如：</p>
+<pre class="prettyprint">
+"i".toUpperCase(); // 使用系统默认Locale，结果可能不是I
+
+"i".toUpperCase(Locale.US); // 指定Locale，结果一定是I
+</pre>
 
 <h3>变量名要能区分视图和model</h3>
 <p>Android代码中有各种视图类，这些类的实例变量取名时最好以View结尾（或其他能清晰表明视图属性的单词，如Button）。这样能避免误把视图对象当作model对象。下面的例子说明了随意起名可能导致的错误：</p>

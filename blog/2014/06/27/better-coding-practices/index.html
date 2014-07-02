@@ -99,6 +99,17 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 </pre>
 
+<h3>使用API要阅读文档，重视文档</h3>
+<p>有这么一行代码：</p>
+<pre class="prettyprint">
+new DecimalFormat("#0.00").format(2.34);
+</pre>
+<p>在某些手机上这一行会返回“2,34”，小数点变成了英文逗号。阅读文档发现，直接用<code class="prettyprint">new</code>这么创建一个<code class="prettyprint">DecimalFormat</code>对象，会使用系统默认的Locale。进一步搜索发现，在某些国家或地区对应的Locale下，小数点就是应该被格式化为英文逗号，因为在这些国家（如法国）里人们的习惯就是如此。如果要保证格式化后为小数点，必须指定Locale：</p>
+<pre class="prettyprint">
+DecimalFormat.getInstance(Locale.US).format(2.34);
+</pre>
+<p>第一种写法在Lint下不会报警，在大多数手机上也能正确运行。没有类似经验的人很难想到这里不指定Locale会出问题。另一方面，文档强烈地建议了使用指定Locale的方法来创建对象。所以，应该重视文档的作用。</p>
+
 <h3>变量名要能区分视图和model</h3>
 <p>Android代码中有各种视图类，这些类的实例变量取名时最好以View结尾（或其他能清晰表明视图属性的单词，如Button）。这样能避免误把视图对象当作model对象。下面的例子说明了随意起名可能导致的错误：</p>
 <pre class="prettyprint">

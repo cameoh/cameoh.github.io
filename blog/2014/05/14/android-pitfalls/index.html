@@ -112,7 +112,7 @@ void populate() {
 <pre class="prettyprint">
 android:overScrollFooter="@null"
 </pre>
-<p>才能显示出开发者设定的背景。根据<a href="http://stackoverflow.com/questions/7245923/listview-background-is-grey-on-droid-3" target="_blank">stackoverflow</a>上的讨论，最早是有人在Motorola的开发者论坛提出这个问题后，Motorola的工程师给出的其中原因和解决办法。</p>
+<p>才能显示出开发者设定的背景。根据<a href="http://stackoverflow.com/questions/7245923/listview-background-is-grey-on-droid-3" target="_blank">stackoverflow</a>上的讨论，最早是有人在Motorola的开发者论坛提问后，Motorola的工程师给出的其中原因和解决办法。</p>
 
 <h3>单个点9图应放入drawable-nodpi文件夹</h3>
 <p>点9图如果放入drawable文件夹，系统会默认其为mdpi资源，在高dpi手机上会把它先按比例放大再使用，从而破坏点9图效果。其实对于一般的点9图使用场景（如圆角按钮背景图），严谨的做法仍然是做一套适配多屏幕密度的资源，分别放入对应的资源文件夹。</p>

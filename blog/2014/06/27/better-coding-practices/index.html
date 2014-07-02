@@ -75,8 +75,14 @@ protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(Bundle savedInstanceState);
   TextView textView = findViewById(R.id.title);
   textView.setText(getString(R.string.title)); // 应使用更简洁的API
-  textView.setText(R.string.title); // 简洁，更易读
+  textView.setText(R.string.title); // 更易读
   
+  StringBuilder sb = new StringBuilder();
+  sb.append("some text");
+  sb.append("more text");
+  textView.setText(sb.toString()); // toString()是多余的
+  textView.setText(sb); // 更简洁
+
   /*
    * 拿到一个Editor，更新一个值
    */

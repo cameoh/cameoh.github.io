@@ -42,6 +42,11 @@ svn blame main.cpp | cat -n | grep 42
 mv `ls *.txt | head -1` destination
 </pre>
 
+<h3>把res/layout目录下所有文件中的fill_parent替换成match_parent</h3>
+<pre class="prettyprint">
+find res/layout -type f -exec sed -i 's/fill_parent/match_parent/g' {} \;
+</pre>
+
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'cameoh';

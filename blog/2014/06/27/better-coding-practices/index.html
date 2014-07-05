@@ -109,7 +109,7 @@ public void mkdirIfNeededVerbose(File file) {
   }
 }
 
-// 简洁的写法
+// 简洁的写法，与繁琐的写法完全等价，但短小易读
 public void mkdirIfNeeded(File file) {
   if (file.exists() || file.mkdir()) {
     // do file operations

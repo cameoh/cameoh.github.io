@@ -97,6 +97,24 @@ protected void onCreate(Bundle savedInstanceState) {
   getSharedPreferences("my preference", Context.MODE_PRIVATE).edit()
       .putString("some key", "some value").commit();
 }
+
+// 对传入的一个目录做操作，如果目录不存在，需要先创建，下面是繁琐的写法：
+public void mkdirIfNeededVerbose(File file) {
+  boolean flag = true;
+  if (!file.exists()) {
+    flag = file.mkdir();
+  }
+  if (flag) {
+    // do file operations
+  }
+}
+
+// 简洁的写法
+public void mkdirIfNeeded(File file) {
+  if (file.exists() || file.mkdir()) {
+    // do file operations
+  }
+}
 </pre>
 
 <h3>阅读并重视API文档</h3>

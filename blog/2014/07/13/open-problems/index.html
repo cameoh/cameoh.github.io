@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>待解决问题</title>
+<link rel="shortcut icon" href="../../../../../../img/favicon.ico" />
+<link href="../../../../../../css/google-code-prettify/prettify.css" rel="stylesheet" />
+<script src="../../../../../../js/google-code-prettify/prettify.js"></script>
+<style>
+pre {
+  background-color: #FAFAFA;
+  overflow: auto;
+}
+.head-block {
+  background-color: #D3D3D3;
+  padding: 1em;
+}
+.container{
+   max-width: 48em;
+   margin: 0 auto;
+}
+</style>
+</head>
+<body onload="prettyPrint()">
+
+<div class="container">
+<div class="head-block">
+此文记录未解决的问题，会持续更新，如果有解决的会另辟文介绍。
+</div>
+
+<h3>阿里系的apk直接用apktool反编译会报错</h3>
+如淘宝、来往等应用。调查发现阿里系的应用在打包apk时对dex做了额外的防反编译处理。这篇<a href="http://www.strazzere.com/papers/DexEducation-PracticingSafeDex.pdf" target="_blank">文章</a>里有对相关内容的介绍。待学习。
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'cameoh';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</body>
+</html>

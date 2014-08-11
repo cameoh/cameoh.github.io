@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>在Android手机上实时抓包</title>
+<title>在 Android 手机上实时抓包</title>
 <link rel="shortcut icon" href="../../../../../../img/favicon.ico" />
 <link href="../../../../../../css/google-code-prettify/prettify.css" rel="stylesheet" />
 <script src="../../../../../../js/google-code-prettify/prettify.js"></script>
@@ -29,18 +29,28 @@ pre {
 
 <div class="container">
 <div class="head-block">
-介绍用Wireshark实时抓取Android手机网络包
+介绍如何用 Wireshark 实时抓取 Android 手机网络包，本文仅记录主要步骤，工作原理和各命令使用的参数含义、设置可参考网上的资料。
 </div>
-<p>在手机上安装BusyBox，安装tcpdump，在电脑上安装netcat、Wireshark</p>
+<h3>前提条件</h3>
+<p>Android 手机已获得 root 权限，PC 操作系统为 Windows、Linux、Mac OS/X 之一，并安装了 Android SDK。</p>
 
+<h3>准备工作</h3>
+<ul>
+<li>在手机上安装 <a href="http://netcat.sourceforge.net/" target="_blank">netcat</a>（可使用 <a href="https://play.google.com/store/apps/details?id=stericson.busybox&hl=en" target="_blank">BusyBox installer</a> 安装）</li>
+<li>在手机上安装 <a href="http://www.tcpdump.org/" target="_blank">tcpdump</a>，可<a href="http://omappedia.org/wiki/USB_Sniffing_with_tcpdump" target="_blank">在此</a>下载对 ARM 平台编译好的二进制文件，复制到 /system/bin 目录下并添加运行权限。需注意 adb shell 提供的 chmod 命令不支持符号模式，必须使用八进制语法，如：<code class="prettyprint">chmod 6755 /system/bin/tcpdump</code></li>
+<li>在PC上安装 netcat 和 <a href="https://www.wireshark.org/" target="_blank">Wireshark</a></li>
+</ul>
+
+<h3>抓包步骤</h3>
+<p>通过 <code class="prettyprint">adb shell</code> 在手机上运行以下命令：</p>
 <pre class="prettyprint">
 tcpdump -n -s 0 -w - | nc -l -p 11233
 </pre>
 
+<p>在PC的命令行中依次输入以下命令：</p>
 <pre class="prettyprint">
 adb forward tcp:11233 tcp:11233
 </pre>
-
 <pre class="prettyprint">
 nc 127.0.0.1 11233 | wireshark -k -S -i -
 </pre>

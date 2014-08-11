@@ -29,7 +29,7 @@ pre {
 
 <div class="container">
 <div class="head-block">
-介绍如何用 Wireshark 实时抓取 Android 手机网络包，本文仅记录主要步骤，工作原理和各命令使用的参数含义、设置可参考网上的资料。
+介绍如何用 Wireshark 实时抓取 Android 手机网络包。本文仅记录主要步骤。工作原理和各命令使用的参数含义、进一步的设置可参考网上的资料。
 </div>
 <h3>前提条件</h3>
 <p>Android 手机已获得 root 权限，PC 操作系统为 Windows、Linux、Mac OS/X 之一，并安装了 Android SDK。</p>
@@ -47,7 +47,7 @@ pre {
 tcpdump -n -s 0 -w - | nc -l -p 11233
 </pre>
 
-<p>在PC的命令行中依次输入以下命令：</p>
+<p>在 PC 的命令行中依次输入以下命令：</p>
 <pre class="prettyprint">
 adb forward tcp:11233 tcp:11233
 </pre>

@@ -149,6 +149,16 @@ public View getView(int position, View convertView, ViewGroup parent) {
 }
 </pre>
 <p>不传入父视图会导致布局文件中的某些属性失效。在视图比较简单的情况下甚至可能不会显现出来，但其实这时已经埋下了隐患。</p>
+
+<h3>移动网络特有的问题</h3>
+<p>在某些移动网络下，因为运营商网关的运行方式，客户端发起的 HTTP 请求中的 Host 头可能会被丢弃。此时需要加上额外的头信息：</p>
+<pre class="prettyprint">
+X-Online-Host: www.example.com
+</pre>
+<p>才能在服务器端收到正确的 Host 头。详情参见<a href="http://djt.qq.com/article/view/276" target="_blank">这里</a>和<a href="http://www.oschina.net/question/163910_27307" target="_blank">这里</a>。</p>
+
+<p>在某些移动网络下，读流的时候本来应该是 EOF 的地方会抛一个 IOException，需要做特殊处理。</p>
+
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'cameoh';

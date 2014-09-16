@@ -100,7 +100,7 @@ label.setText("some text");
 root.addView(label);
 label.layout(0, 0, width, height);
 </pre>
-<p>因为 <code class="prettyprint">addView(View)</code> 是异步的，调用结束后会在主线程消息队列中插入下一轮 layout 任务，等到其执行时会以视图自身的参数再调用一次 layout。</p>
+<p>因为 <code class="prettyprint">addView(View)</code> 是异步的，调用时会在主线程消息队列中插入下一轮 layout 任务，等到其执行时会以视图自身的参数再调用一次 layout。</p>
 
 <h3><code class="prettyprint">ListView</code>在Motorola Android 2.3手机上背景为灰色</h3>
 <p>这个问题只在Motorola Android 2.3系统的手机上出现，即在<code class="prettyprint">ListView</code>自身的高度大于其含有的所有行的总高度时，无法显示通过<code class="prettyprint">android:background</code>属性（或者通过代码）指定的背景，总是显示带阴影效果的灰色背景。比如下面的layout</p>

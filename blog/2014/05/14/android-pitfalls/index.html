@@ -92,7 +92,15 @@ void populate() {
   ...
 }
 </pre>
-<p>这说明如果<code class="prettyprint">ViewPager</code>当前没有被添加到Window中，在<code class="prettyprint">setAdapter(PagerAdapter)</code>返回前<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法不会被执行。这种情况下调用是异步的。如果在<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法中做一些初始化工作，在<code class="prettyprint">setAdapter(PagerAdapter)</code>方法返回后这些初始化代码有可能还没有被执行，不能对调用顺序做错误的假设。一个被触发的方法调用是同步的还是异步的，一般在文档中没有说明。如果在实现中需要知道这些细节，阅读源码是最好的选择。</p>
+<p>这说明如果<code class="prettyprint">ViewPager</code>当前没有被添加到Window中，在<code class="prettyprint">setAdapter(PagerAdapter)</code>返回前<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法不会被执行。这种情况下调用是异步的。如果在<code class="prettyprint">instantiateItem(ViewGroup, int)</code>方法中做一些初始化工作，在<code class="prettyprint">setAdapter(PagerAdapter)</code>方法返回后这些初始化代码有可能还没有被执行，不能对调用顺序做错误的假设。一个被触发的方法调用是同步的还是异步的，一般在文档中没有说明。如果在实现中需要知道这些细节，阅读源码是最好的选择。涉及到 View 变化的方法，大多是异步的，下面代码中的layout将不起作用：</p>
+<pre class="prettyprint">
+LinearLayout root = (LinearLayout) findViewById(R.id.root);
+TextView label = new TextView(this);
+label.setText("some text");
+root.addView(label);
+label.layout(0, 0, width, height);
+</pre>
+<p>因为 <code class="prettyprint">addView(View)</code> 是异步的，调用结束后会在主线程消息队列中插入下一轮 layout 任务，等到其执行时会以视图自身的参数再调用一次 layout。</p>
 
 <h3><code class="prettyprint">ListView</code>在Motorola Android 2.3手机上背景为灰色</h3>
 <p>这个问题只在Motorola Android 2.3系统的手机上出现，即在<code class="prettyprint">ListView</code>自身的高度大于其含有的所有行的总高度时，无法显示通过<code class="prettyprint">android:background</code>属性（或者通过代码）指定的背景，总是显示带阴影效果的灰色背景。比如下面的layout</p>

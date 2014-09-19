@@ -171,7 +171,7 @@ X-Online-Host: www.example.com
 <p>序列化 <code class="prettyprint">android.graphics.Bitmap</code> 类型的字段，在三星 S4、note 等机型上将失败。对这类不需要序列化的字段，应使用注释忽略掉。</p>
 
 <h3>Application作为单例来使用的问题</h3>
-<p>有时程序的一部分组件（如推送 Service）会放到单独的一个进程中。每个进程都会创建自己的Application，如果在Application初始化时做了一些只应该做一次的工作，要注意去重。</p>
+<p>有时程序的某些组件（如推送 Service）会放到单独的一个进程中。每个进程都会创建自己的 Application，如果在 Application 初始化时做了一些只应该做一次的工作，要注意去重。</p>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">

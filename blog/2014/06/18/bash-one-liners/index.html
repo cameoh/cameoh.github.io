@@ -47,6 +47,11 @@ mv `ls *.txt | head -1` destination
 find res/layout -type f -exec sed -i 's/fill_parent/match_parent/g' {} \;
 </pre>
 
+<h3>转换含文本文件编码为 UTF-8</h3>
+<pre class="prettyprint">
+enca -L zh_CN -x UTF-8 file
+</pre>
+
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'cameoh';

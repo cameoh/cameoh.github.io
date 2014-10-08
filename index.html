@@ -20,6 +20,11 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+      .hidden {
+        display: none;
+      }
+    </style>
   </head>
   
   <body>
@@ -51,6 +56,7 @@
           <li class="list-group-item title"><a href="blog/2014/07/13/open-problems/">待解决问题</a></li>
           <li class="list-group-item title"><a href="blog/2014/06/27/better-coding-practices/">更好的编程实践</a></li>
           <li class="list-group-item title"><a href="blog/2014/06/18/bash-one-liners/">Bash one-liners</a></li>
+          <li class="list-group-item title hidden"><a href="blog/2014/06/13/interview-questions/">面试</a></li>
           <li class="list-group-item title"><a href="blog/2014/06/06/locd/">locd</a></li>
           <li class="list-group-item title"><a href="blog/2014/05/14/android-pitfalls/">Android 开发中的坑</a></li>
           <li class="list-group-item title"><a href="blog/2014/05/12/java-code-style/">Java 编码风格小记</a></li>
@@ -60,5 +66,11 @@
 
     <script src="js/jquery/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/konami-js/konami.js"></script>
+    <script>
+      var egg = new Konami();
+      egg.code = function() { $(".list-group-item").removeClass("hidden"); }
+      egg.load();
+    </script>
   </body>
 </html>

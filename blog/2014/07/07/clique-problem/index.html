@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>Clique Problem</title>
+<title>Clique problem</title>
 <link rel="shortcut icon" href="../../../../../../img/favicon.ico" />
 <link href="../../../../../../css/google-code-prettify/prettify.css" rel="stylesheet" />
 <script src="../../../../../../js/google-code-prettify/prettify.js"></script>
@@ -28,9 +28,23 @@ pre {
 <body onload="prettyPrint()">
 
 <div class="container">
-算法、性能优化
 <div class="head-block">
+介绍一种求最大权重 clique 的算法
 </div>
+<h3>问题介绍</h3>
+<p>在竞彩足球的混合过关玩法中需要计算用户下注的最大奖金。对于一场比赛，用户可以选择多个类型的赛果进行下注，
+这些赛果之前有一定的相容关系，比如“主胜”和“总进球数0”不可能同时中奖，而“主胜”和“总进球数2”可能同时中奖。
+给定一场比赛各个赛果的赔率，以及用户选择下注的赛果，求中奖金额的最大值。</p>
+
+<h3>指数增长的复杂度</h3>
+<p>因为一个比赛用户最多可以选择54个赛果，赛果之间的相容关系由业务逻辑决定。我们想寻找一种通用的和业务逻辑解耦的方法。
+经查阅一些资料后，发现这个问题可以比较好的划归为经典的 <a href="http://en.wikipedia.org/wiki/Clique_problem" target="_blank">Clique problem</a>。
+经检索发现一篇1994年的文献：<a href="http://doi.org/10.1007/BF02243394" target="_blank">A fast algorithm for the maximum weight clique problem</a>。
+这篇文献讲的算法的优点是相对较好实现。</p>
+
+<h3>遗留问题</h3>
+<p>经典的最大权重 Clique problem 不能解决三三互斥的场景。比赛赔率由博彩公司给出，博彩公司要盈利，
+给出的赔率是需要满足一定限制条件的。这些条件是否能够用来优化找到最大值的效率？</p>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">

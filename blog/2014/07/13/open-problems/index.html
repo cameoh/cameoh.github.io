@@ -38,6 +38,14 @@ pre {
 <h3>ListView 精确定位</h3>
 <p>微信朋友圈在点击一条评论回复时，会滚动列表使这条评论刚好位于输入框的上方，如何做到的待研究。是否可逆向工程出某 feature 的实现机制？</p>
 
+<h3>Android 开启硬件加速相关的坑</h3>
+<p>Rotate3dAnimation 在4.4系统上对 TextView 使用时需要先设置图层属性：</p>
+<pre class="prettyprint">
+t = (TextView) findViewById(R.id.text);
+t.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+</pre>
+<p>否则在动画进行时 TextView 将不可见。</p>
+
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'cameoh';

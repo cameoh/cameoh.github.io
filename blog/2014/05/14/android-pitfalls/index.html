@@ -181,7 +181,7 @@ protected void onStop() {
   WebView.disablePlatformNotifications();
 }
 </pre>
-<p>这2个方法在高版本 SDK 被移除了，如果想使用高版本 SDK，需要使用反射：</p>
+<p>这2个方法在高版本 SDK 中被移除了，如果想使用高版本 SDK，需要使用反射：</p>
 <pre class="prettyprint">
 @Override
 protected void onResume() {
@@ -201,6 +201,7 @@ protected void onStop() {
   }
 }
 </pre>
+<p>实际上在高版本的手机系统内的 WebView 仍然有这2个方法。</p>
 
 <h3>JSON序列化要注意某些特殊类型的字段</h3>
 <p>序列化 <code class="prettyprint">android.graphics.Bitmap</code> 类型的字段，在三星 S4、note 等机型上将失败。对这类不需要序列化的字段，应使用注释忽略掉。</p>

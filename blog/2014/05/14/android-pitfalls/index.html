@@ -167,7 +167,7 @@ X-Online-Host: www.example.com
 
 <p>在某些移动网络下，读流的时候本来应该是 EOF 的地方会抛一个 IOException，需要做特殊处理。</p>
 
-<p>使用 CMWAP 接入点在 WebView 中联网会失败，需要在 WebView 所处 Activity 或者 Fragment 的生命周期方法内调用适当的方法，如下：</p>
+<p>为解决 WebView 在 CMWAP 接入点下联网失败的问题，需要在 WebView 所处 Activity 或者 Fragment 的生命周期方法内调用适当的方法，如下：</p>
 <pre class="prettyprint">
 @Override
 protected void onResume() {

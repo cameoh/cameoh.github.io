@@ -167,11 +167,49 @@ X-Online-Host: www.example.com
 
 <p>在某些移动网络下，读流的时候本来应该是 EOF 的地方会抛一个 IOException，需要做特殊处理。</p>
 
+<p>使用 CMWAP 接入点在 WebView 中联网会失败，需要在 WebView 所处 Activity 或者 Fragment 的生命周期方法内调用适当的方法，如下：</p>
+<pre class="prettyprint">
+@Override
+protected void onResume() {
+  super.onResume();
+  WebView.enablePlatformNotifications();
+}
+
+@Override
+protected void onStop() {
+  super.onStop();
+  WebView.disablePlatformNotifications();
+}
+</pre>
+<p>这2个方法在高版本 SDK 被移除了，如果想使用高版本 SDK，需要使用反射：</p>
+<pre class="prettyprint">
+@Override
+protected void onResume() {
+  super.onResume();
+  try {
+    WebView.class.getMethod("enablePlatformNotifications").invoke(null);
+  } catch (Exception ignore) {
+  }
+}
+
+@Override
+protected void onStop() {
+  super.onStop();
+  try {
+    WebView.class.getMethod("disablePlatformNotifications").invoke(null);
+  } catch (Exception ignore) {
+  }
+}
+</pre>
+
 <h3>JSON序列化要注意某些特殊类型的字段</h3>
 <p>序列化 <code class="prettyprint">android.graphics.Bitmap</code> 类型的字段，在三星 S4、note 等机型上将失败。对这类不需要序列化的字段，应使用注释忽略掉。</p>
 
 <h3>Application作为单例来使用的问题</h3>
 <p>有时程序的某些组件（如推送 Service）会放到单独的一个进程中。每个进程都会创建自己的 Application，如果在 Application 初始化时做了一些只应该做一次的工作，要注意去重。</p>
+
+<h3>WebView</h3>
+<p></p>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">

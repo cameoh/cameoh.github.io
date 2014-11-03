@@ -67,6 +67,9 @@ void someMethod(int index){
 </pre>
 <p>就可以实现release版本无日志。需要注意的是使用此功能必须打开ProGuard的优化开关，具体配置可参考SDK目录下的tools/proguard/proguard-android-optimize.txt文件。</p>
 
+<h3>Android 应用如何快速打渠道包</h3>
+<p>已知最快的办法是在美团技术博客的<a href="http://tech.meituan.com/mt-apk-packaging.html" target="_blank">这篇文章</a>里介绍的第三种方法。需要注意的是在生成渠道包后需要重新用 <a href="http://developer.android.com/tools/help/zipalign.html" target="_blank">zipalign</a> 处理 apk。</p>
+
 <h3>言贵简，文贵短</h3>
 <pre class="prettyprint">
 @Override

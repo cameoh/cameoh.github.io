@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>依赖管理这件小事</title>
+<link rel="shortcut icon" href="../../../../../../img/favicon.ico" />
+<link href="../../../../../../css/google-code-prettify/prettify.css" rel="stylesheet" />
+<script src="../../../../../../js/google-code-prettify/prettify.js"></script>
+<style>
+pre {
+  background-color: #FAFAFA;
+  overflow: auto;
+}
+.head-block {
+  background-color: #D3D3D3;
+  padding: 1em;
+}
+.container{
+   max-width: 48em;
+   margin: 0 auto;
+}
+img{
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+</style>
+</head>
+<body onload="prettyPrint()">
+
+<div class="container">
+<div class="head-block">
+一个软件工程的规模上去之后，各个模块之间的依赖管理是迫切需要解决的问题。本文介绍使用 Gradle 管理 Android 应用开发中的依赖的经验。
+</div>
+
+<h3>使用 Eclipse ADT 存在的问题</h3>
+<p>任何软件工程的项目规模大到一定程度后，模块化是必经之路。Android 应用开发也不例外，大型的项目都会有很多依赖。这些依赖中有些是库工程。Eclipse 通过项目根目录的 project.properties 文件管理库工程的引用。一个典型的 project.properties 文件如下：</p>
+<pre>
+target=android-21
+android.library.reference.1=../alipay_lib
+android.library.reference.2=../weixin_share_sdk
+android.library.reference.3=../js_bridge/js_bride_android_sdk
+</pre>
+<p>还有一些依赖是以在 libs 文件夹下放置 jar 文件的形式提供：</p>
+<pre>
+libs/
+├── android-async-http-1.4.5.jar
+├── commons-httpclient-3.1.jar
+├── httpmime-4.1.1.jar
+├── jackson-core-asl-1.9.13.jar
+├── jackson-mapper-asl-1.9.13.jar
+└── jgrapht-core-0.9.0.jar
+</pre>
+<p>可以发现这种依赖管理模型存在一些问题：</p>
+<ol>
+<li>project.properties 使用相对路径来引用库工程，这要求项目和项目依赖的相对路径保持固定。对依赖众多且来源复杂（有的是第三方库，有的是内部维护的基础库等等）的大型项目，很难做到这一点。</li>
+<li>无法有效控制依赖库和 jar 文件的版本，更新、维护成本巨大。</li>
+</ol>
+
+<h3>Gradle 使用 arr 格式</h3>
+<p>Java 世界的依赖管理，已经被很好地解决了。这个解决方案就是 Maven。这个方案是如此的经典，以致于现在搜索 <a href="https://www.google.com/#q=dependency+management" target="_blank">dependency management</a>，结果第一条就是 Maven。Google 2013年推出的 Android Studio，使用 Gradle 构建，并且集成了对 Maven 仓库的支持。同时推出的还有一种专门用于打包 Android 库工程的格式 AAR。基于此，使用 Maven 仓库来提供 Android 项目的依赖就没有任何障碍了。公司内部可以搭建一个 Maven 仓库，内部库工程发布 aar 到仓库中，依赖这个库工程的项目只需要指定一个 Maven 坐标即可，非常方便。下面给出一个Android 库工程的 module 级别的 build.gradle 参考写法：</p>
+<pre>
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.1"
+
+    defaultConfig {
+        applicationId "com.example.testaar"
+        minSdkVersion 7
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:21.0.0'
+}
+
+apply plugin: 'maven'
+
+version = "1.0.0"
+group = "com.example.testaar"
+
+configurations {
+    deployerJars
+}
+
+dependencies {
+    deployerJars "org.apache.maven.wagon:wagon-http:2.7"
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        configuration = configurations.deployerJars
+        repository(url: "http://localhost/path/to/maven/repo/") {
+            authentication(userName: "admin", password: "admin")
+        }
+    }
+}
+</pre>
+<p>因为是内部使用的repo，没有做签名。使用 Gradle 执行 uploadArchives 任务后，当前库工程构建生成的 aar 就被上传到 Maven 仓库了，可以被其他项目引用。</p>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'cameoh';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</body>
+</html>

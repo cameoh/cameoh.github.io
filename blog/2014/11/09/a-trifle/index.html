@@ -59,10 +59,10 @@ libs/
 <p>可以发现这种依赖管理模型存在一些问题：</p>
 <ol>
 <li>project.properties 使用相对路径来引用库工程，这要求项目和项目依赖的相对路径保持固定。对依赖众多且来源复杂（有的是第三方库，有的是内部维护的基础库等等）的大型项目，很难做到这一点。</li>
-<li>无法有效控制依赖库和 jar 文件的版本，更新、维护成本巨大。</li>
+<li>无法有效控制依赖库和 jar 文件的版本，更新、维护成本巨大。一个经常碰到的问题是，如果主项目使用了依赖库的更新版本的新特性，就需要手动更新依赖库，否则编译都通不过。看上去是件小事，但造成的麻烦很多。</li>
 </ol>
 
-<h3>Gradle 使用 arr 格式</h3>
+<h3>使用 AAR 格式</h3>
 <p>Java 世界的依赖管理，已经被很好地解决了。这个解决方案就是 Maven。这个方案是如此的经典，以致于现在搜索 <a href="https://www.google.com/#q=dependency+management" target="_blank">dependency management</a>，结果第一条就是 Maven。Google 2013年推出的 Android Studio，使用 Gradle 构建，并且集成了对 Maven 仓库的支持。同时推出的还有一种专门用于打包 Android 库工程的格式 AAR。基于此，使用 Maven 仓库来提供 Android 项目的依赖就没有任何障碍了。团队内部可以搭建一个 Maven 仓库，内部库工程发布 aar 到仓库中，依赖这个库工程的项目只需要指定一个 Maven 坐标即可，非常方便。下面给出一个Android 库工程的 module 级别的 build.gradle 参考写法：</p>
 <pre>
 apply plugin: 'com.android.library'

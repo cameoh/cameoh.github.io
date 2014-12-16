@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
-<title>LeetCode</title>
+<title>LeetCode 解题记录</title>
 <link rel="shortcut icon" href="../../../../../../img/favicon.ico" />
 <link href="../../../../../../css/google-code-prettify/prettify.css" rel="stylesheet" />
 <script src="../../../../../../js/google-code-prettify/prettify.js"></script>
@@ -29,7 +29,7 @@ pre {
 
 <div class="container">
 <div class="head-block">
-LeetCode解题记录。记录的不是答案。答案网上有。记录的是解一道题从无到有的过程。一个东西一旦被看过，就没有办法做到 unseen。
+LeetCode 解题记录。记录的不是答案。答案网上有。记录的是解一道题从无到有的过程。一个东西一旦被看过，就没有办法做到 unseen。
 </div>
 
 <h3><a href="https://oj.leetcode.com/problems/longest-consecutive-sequence/" target="_blank">Longest Consecutive Sequence</a></h3>
@@ -39,7 +39,7 @@ LeetCode解题记录。记录的不是答案。答案网上有。记录的是解
 <li>判断当前元素是否刚好在某个区间的边缘，从而使得这个区间的长度加1</li>
 <li>判断当前元素是否会导致2个区间的合并</li>
 </ol>
-<p>无论哪种情况，都要维护被修改的区间的长度，同时与已知的最大值比较。综合起来，用一个 set 加一个 map<int, int> 可以满足需求。set 用于满足操作1，map 用来满足剩下的需求。使用 map<int, int> 来保存已找到的连续序列是关键。如果 [i, j] 是已找到的连续序列，那么 i -> j 和 j -> i 都要放在 map 里面。</p>
+<p>无论哪种情况，都要维护被修改的区间的长度，同时与已知的最大值比较。综合起来，用一个 set 加一个 map<int, int> 可以满足需求。set 用来满足操作1，map 用来满足剩下的需求。使用 map<int, int> 来保存已找到的连续序列是关键。如果 [i, j] 是已找到的连续序列，那么 i -> j 和 j -> i 都要放在 map 里面。</p>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">

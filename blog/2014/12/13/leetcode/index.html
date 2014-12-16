@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>LeetCode</title>
+<link rel="shortcut icon" href="../../../../../../img/favicon.ico" />
+<link href="../../../../../../css/google-code-prettify/prettify.css" rel="stylesheet" />
+<script src="../../../../../../js/google-code-prettify/prettify.js"></script>
+<style>
+pre {
+  background-color: #FAFAFA;
+  overflow: auto;
+}
+.head-block {
+  background-color: #D3D3D3;
+  padding: 1em;
+}
+.container{
+   max-width: 48em;
+   margin: 0 auto;
+}
+</style>
+</head>
+<body onload="prettyPrint()">
+
+<div class="container">
+<div class="head-block">
+LeetCode解题记录。记录的不是答案。答案网上有。记录的是解一道题从无到有的过程。一个东西一旦被看过，就没有办法做到 unseen。
+</div>
+
+<h3><a href="https://oj.leetcode.com/problems/longest-consecutive-sequence/" target="_blank">Longest Consecutive Sequence</a></h3>
+<p>这道题目与动态规划经典题目 <a href="http://en.wikipedia.org/wiki/Maximum_subarray_problem" target="_blank">Maximum subarray problem</a> 形似。要求 O(n) 时间，也就是说，只能扫一遍数组，并且在每一步用 O(1) 的代价维护最大值信息。剩下的问题就是找到用 O(1) 代价维护最大值的方法。刚开始以为会用到复杂的数据结构，后来发现想多了。LeetCode 作为面试题库，不可能考很复杂的数据结构，面试不是做研究。在扫描数组的每一步，可能的操作有：</p>
+<ol>
+<li>判断当前元素是否在已有的某个区间内</li>
+<li>判断当前元素是否刚好在某个区间的边缘，从而使得这个区间的长度加1</li>
+<li>判断当前元素是否会导致2个区间的合并</li>
+</ol>
+<p>无论哪种情况，都要维护被修改的区间的长度，同时与已知的最大值比较。综合起来，用一个 set 加一个 map<int, int> 可以满足需求。set 用于满足操作1，map 用来满足剩下的需求。使用 map<int, int> 来保存已找到的连续序列是关键。如果 [i, j] 是已找到的连续序列，那么 i -> j 和 j -> i 都要放在 map 里面。</p>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'cameoh';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</body>
+</html>

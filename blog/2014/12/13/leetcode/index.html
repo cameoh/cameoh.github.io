@@ -41,6 +41,9 @@ LeetCode 解题记录。记录的不是答案。答案网上有。记录的是�
 </ol>
 <p>无论哪种情况，都要维护被修改的区间的长度，同时与已知的最大值比较。综合起来，用一个 set 加一个 map<int, int> 可以满足需求。set 用来满足操作1，map 用来满足剩下的需求。使用 map<int, int> 来保存已找到的连续序列是关键。如果 [i, j] 是已找到的连续序列，那么 i -> j 和 j -> i 都要放在 map 里。</p>
 
+<h3><a href="https://oj.leetcode.com/problems/maximum-product-subarray/" target="_blank">Maximum Product Subarray</a></h3>
+<p>同样是扫一遍数组，在每一步维护最大最小值。一开始对大于0，等于0，小于0分情况处理。后来发现没有必要，维护最大最小值即可。</p>
+
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'cameoh';

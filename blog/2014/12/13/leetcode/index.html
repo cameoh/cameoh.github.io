@@ -50,6 +50,9 @@ LeetCode 解题记录。记录的不是答案。答案网上有。记录的是�
 <h3><a href="https://oj.leetcode.com/problems/trapping-rain-water/" target="_blank">Trapping Rain Water</a></h3>
 <p>友盟面试问过这道题。最开始想从左往右只扫一遍数组，后来发现很难维护住需要的信息，因为一个局部的凹坑可能处在包围它的一个更大的凹坑中。一个可行的思路是这样的：每个柱子能接多少水由柱子本身的高度，以及从这个柱子往两边看过去的最高柱子的高度决定。这个思路的优点是只需要关心全局极值，不需要关心局部。用这个思路可以写出时间复杂度 O(n) 的解，但是空间复杂度也是 O(n) 。友盟的面试官给的思路是分治法：先找出整个区间最高的和第二高的柱子，这两个柱子之间接住的水可以计算，然后对这两个柱子之外的区间重复第一步。这个解法空间复杂度为 O(1)，但时间复杂度上升为 O(n log n)。还有一个更好的解法，空间复杂度 O(1)，时间复杂度 O(n)：从最左端和最右端往中间扫，每次移动高度低的那一边。</p>
 
+<h3><a href="https://oj.leetcode.com/problems/permutations-ii/" target="_blank">Permutations II</a></h3>
+<p>用 C++ 实现过程中，碰到了 std::vector 的一个坑，用 [] 得到的引用在 push_back 后有可能会失效（发生 reallocation 时）。与 Java 中的 ArrayList 类似方法的行为有差别。</p>
+
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'cameoh';

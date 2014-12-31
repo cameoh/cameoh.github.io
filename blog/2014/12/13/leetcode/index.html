@@ -53,6 +53,10 @@ LeetCode 解题记录。记录的不是答案，是解题思路从无到有的�
 <h3><a href="https://oj.leetcode.com/problems/permutations-ii/" target="_blank">Permutations II</a></h3>
 <p>用 C++ 实现过程中，碰到了 std::vector 的一个坑：用 [] 得到的引用在 push_back 后有可能会失效（发生 reallocation 时）。这与 Java 的 ArrayList 类似方法的行为有差别。</p>
 
+<h3><a href="https://oj.leetcode.com/problems/distinct-subsequences/" target="_blank">Distinct Subsequences</a></h3>
+<p>可以用递归，但是复杂度高。用动态规划可以做到时间复杂度 O(m * n)。实现的时候有一个细节：在数组头部加一个辅助元素 1，可以省掉两处判断，使代码更简洁。</p>
+
+
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'cameoh';

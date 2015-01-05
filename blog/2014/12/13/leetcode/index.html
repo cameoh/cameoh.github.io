@@ -60,7 +60,10 @@ LeetCode 解题记录。记录的不是答案，是解题思路从无到有的�
 <p>有空间复杂度 O(1) 的解法，需要构造一个新旧节点交替的链表。涉及到链表操作，要注意判空。</p>
 
 <h3><a href="https://oj.leetcode.com/problems/surrounded-regions/" target="_blank">Surrounded Regions</a></h3>
-<p>Flood fill 算法。有一个小技巧：可以把两个 int pack 到一个 int 里。</p>
+<p>Flood fill 算法。如果用广度优先搜索，需要保存 int 对到队列中，可以把两个 int pack 到一个 int 里。</p>
+
+<h3><a href="https://oj.leetcode.com/problems/max-points-on-a-line/" target="_blank">Max Points On A Line</a></h3>
+<p>暴力求解时间复杂度是 O(n^3)。使用哈希表能够把复杂度降到 O(n^2)，可以想象这是最好的时间复杂度。写代码时碰到了 std::vector 的另一个坑：因为 vector::size 返回类型 size_type 是无符号整型，所以 <code class="prettyprint">vector<int> v; v.size() - 1</code> 是一个很大的正数，不是 -1。在写循环的边界条件时要注意。</p>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">

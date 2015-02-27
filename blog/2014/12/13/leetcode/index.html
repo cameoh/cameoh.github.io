@@ -84,6 +84,9 @@ int ia = '1' - '0';
 <h3><a href="https://oj.leetcode.com/problems/binary-tree-maximum-path-sum/" target="_blank">Binary Tree Maximum Path Sum</a></h3>
 <p>粗看感觉应该有 O(n) 的解法，即遍历一遍。如果每个节点都没有右子节点，那么就退化成经典的动态规划题目——最大和子数组。用类似的思路，需要找一个合适的遍历顺序，试探后发现应该使用中序遍历。有了思路后就简单了，标准的递归。</p>
 
+<h3><a href="https://oj.leetcode.com/problems/binary-tree-preorder-traversal/" target="_blank">Binary Tree Preorder Traversal</a></h3>
+<p>非递归解法需要用栈来模拟函数调用。对于先序遍历，可使用<a href="http://en.wikipedia.org/wiki/Tail_call">尾递归优化</a>。后序遍历的非递归解法比较复杂。</p>
+
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'cameoh';

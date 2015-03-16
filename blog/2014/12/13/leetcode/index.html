@@ -93,6 +93,9 @@ int ia = '1' - '0';
 <h3><a href="https://leetcode.com/problems/maximum-subarray/" target="_blank">Maximum Subarray</a></h3>
 <p>动态规划经典题目。<a href="http://www.geeksforgeeks.org/divide-and-conquer-maximum-sum-subarray/" target="_blank">这里</a>介绍了一种采用分治法的解法，时间复杂度是 O(n log n)。如果使用更多的空间，用分治法可以做到 O(n)。即，维护单个区间的和值、最大和子数组、包含最左边元素的最大和子数组、包含最右边元素的最大和子数组，使得合并两个区间只需要 O(1) 的时间。</p>
 
+<h3><a href="https://leetcode.com/problems/merge-intervals/" target="_blank">Merge Intervals</a></h3>
+<p>排序之后扫一遍即可。这里返回的是一个新构造的 vector，可以修改原有 vector 元素再插入新 vector， 也可以先插入再修改。后一种写法不会修改传入的 vector。重视这些细节可以进一步提高代码质量。</p>
+
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'cameoh';

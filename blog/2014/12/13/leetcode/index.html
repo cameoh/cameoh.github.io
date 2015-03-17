@@ -66,7 +66,7 @@ LeetCode 解题记录。记录的不是答案，是解题思路从无到有的�
 <p>暴力求解时间复杂度是 O(n^3)。使用哈希表能够把复杂度降到 O(n^2)，可以想象这是最好的时间复杂度。写代码时碰到了 std::vector 的另一个坑：因为 vector::size 返回类型 size_type 是无符号整型，所以 <code class="prettyprint">vector<int> v; v.size() - 1</code> 是一个很大的正数，不是 -1。在写循环的边界条件时要注意。</p>
 
 <h3><a href="https://oj.leetcode.com/problems/unique-paths/" target="_blank">Unique Paths</a></h3>
-<p>动态规划经典题目。这道题目其实可以手算，答案就是一个组合数。但是在计算组合数时要用 double，防止整形溢出。</p>
+<p>动态规划经典题目。这道题目其实可以手算，答案就是一个组合数。但是在计算组合数时要用 double，避免整型溢出。</p>
 
 <h3><a href="https://oj.leetcode.com/problems/rotate-list/" target="_blank">Rotate List</a></h3>
 <p>一快一慢两指针，多个题目有用到。</p>
@@ -94,7 +94,7 @@ int ia = '1' - '0';
 <p>动态规划经典题目。<a href="http://www.geeksforgeeks.org/divide-and-conquer-maximum-sum-subarray/" target="_blank">这里</a>介绍了一种采用分治法的解法，时间复杂度是 O(n log n)。如果使用更多的空间，用分治法可以做到 O(n)。即，维护单个区间的和值、最大和子数组、包含最左边元素的最大和子数组、包含最右边元素的最大和子数组，使得合并两个区间只需要 O(1) 的时间。</p>
 
 <h3><a href="https://leetcode.com/problems/insert-interval/" target="_blank">Insert Interval</a></h3>
-<p>这道题需要扫一遍 vector，扫的时候分三个阶段，每个阶段有各自的逻辑。对这种情况，为了代码更清晰，可以把三个阶段并列写在同一层次，而不要写成三层递进循环。</p>
+<p>这道题需要扫一遍 vector，扫的时候分三个阶段，每个阶段有各自的逻辑。对这种情况，为了代码更清晰，应该把三个阶段并列写在同一层次，而不要写成三层缩进块。</p>
 
 <h3><a href="https://leetcode.com/problems/merge-intervals/" target="_blank">Merge Intervals</a></h3>
 <p>排序之后扫一遍即可。这里返回的是一个新构造的 vector，可以修改原有 vector 元素再插入新 vector， 也可以先插入再修改。后一种写法不会修改传入的 vector。重视这些细节可以进一步提高代码质量。</p>

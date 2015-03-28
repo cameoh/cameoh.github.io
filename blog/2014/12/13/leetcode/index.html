@@ -102,6 +102,9 @@ int ia = '1' - '0';
 <h3><a href="https://leetcode.com/problems/sort-list/" target="_blank">Sort List</a></h3>
 <p>由于链表的特性，使用归并排序可以获得 O(1) 的空间复杂度。<a href="http://www.chiark.greenend.org.uk/~sgtatham/algorithms/listsort.html" target="_blank">这里</a>有详细介绍。</p>
 
+<h3><a href="https://leetcode.com/problems/divide-two-integers/" target="_blank">Divide Two Integers</a></h3>
+<p>注意对溢出的处理。不应该转化成 long 类型，因为可以继续问如果传入的已经是 long 怎么办。普遍的处理方法是对边界值做特殊处理（如果需要），对非边界值用不等式判定，并且需要变形为两边都不溢出的形式。</p>
+
 <div id="disqus_thread"></div>
 <script type="text/javascript">
   var disqus_shortname = 'cameoh';

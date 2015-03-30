@@ -109,7 +109,7 @@ int ia = '1' - '0';
 <p>用常规的动态规划思路可以解决。背后其实是<a href="http://en.wikipedia.org/wiki/Catalan_number" target="_blank"> Catalan Number</a>。</p>
 
 <h3><a href="https://leetcode.com/problems/scramble-string/" target="_blank">Scramble String</a></h3>
-<p>用递归很容易，但是性能很差。立刻想到用动态规划，发现不好写递推关系。进一步发现写不出递推关系的原因是一开始 formulate 问题不够 general，不能涵盖递推关系中出现的子问题。这道题需要做三维动态规划：设函数 F(i, j, k) 返回从第一个字符串的下标 i 开始长度为 k 的子字符串是否是第二个字符串的下标 j 开始长度为 k 的字符串的 scrambled string，那么问题转化为求 F(0, 0, l)，其中 l 是字符串长度。正确的 formulation 是动态规划的核心，这一步对了后面就水到渠成了。</p>
+<p>用递归很容易，但是性能很差。立刻想到用动态规划，发现不好写递推关系。进一步发现写不出递推关系的原因是一开始 formulate 问题不够 general，不能涵盖递推关系中出现的子问题。这道题需要做三维动态规划：设函数 F(i, j, k) 返回从第一个字符串的下标 i 开始长度为 k 的子字符串是否是第二个字符串的下标 j 开始长度为 k 的字符串的 scrambled string，那么问题转化为求 F(0, 0, l)，其中 l 是字符串长度。对问题的正确的 formulation 是动态规划的核心，这一步对了后面就水到渠成了。</p>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">

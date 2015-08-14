@@ -86,7 +86,7 @@
 <ul>
 <li>Boilerplate code，对每一个需要轮询的任务，都需要写相关的 <code class="prettyprint">poll()</code> 方法</li>
 <li>引入了额外的状态 <code class="prettyprint">isPolling</code>，增加维护状态的成本</li>
-<li>存在太多的变数，比如我们可以在 <code class="prettyprint">run()</code> 方法里调用 <code class="prettyprint">doSomething()</code>，也可以在 <code class="prettyprint">poll()</code> 方法中调用；对 <code class="prettyprint">isPolling</code> 的检查有可能放在两个方法的任意一个。团队不同成员之间很难统一，增加阅读理解代码的难度，并且有可能导致 bug。</li>
+<li>存在太多的变数，比如我们可以在 <code class="prettyprint">run()</code> 方法里调用 <code class="prettyprint">doSomething()</code>，也可以在 <code class="prettyprint">poll()</code> 方法中调用；对 <code class="prettyprint">isPolling</code> 的检查有可能放在两个方法的任意一个。团队不同成员之间很难统一。这会增加阅读理解代码的难度，并且埋下了产生 bug 的隐患。</li>
 <li>方法没有明确的语义，比如调用 <code class="prettyprint">poll()</code> 会立即执行 <code class="prettyprint">doSomething()</code> 吗？连续调用多次 <code class="prettyprint">poll()</code> 方法安全吗？不知道，只能去看代码实现细节。</li>
 </ul>
 

@@ -25,7 +25,7 @@
 
 <div class="container">
 <div class="head-block">
-本文讨论 Android 应用如何在 Activity 中实现轮询
+本文讨论 Android 应用如何实现轮询
 </div>
 
 <p>一个常见的需求是用户进入一个界面，请求一个接口获取数据，之后每隔固定时间请求一次接口刷新数据。当这个界面不再被显示时（比如用户按了 Home 键），停止轮询。看似很简单，5分钟可以搞定，像下面这样（下述代码位于一个有轮询需求的 Activity 内）：<p>
@@ -82,12 +82,12 @@
   };
 </pre>
 
-<p>其中<code class="prettyprint">doSomething()</code>是我们需要每隔固定时间执行一次的方法。这样的实现存在若干问题：</p>
+<p>其中 <code class="prettyprint">doSomething()</code> 是我们需要每隔固定时间执行一次的方法。这样的实现存在若干问题：</p>
 <ul>
-<li>Boilerplate code，对每一个需要轮询的任务，都需要写相关的<code class="prettyprint">poll()</code>方法</li>
-<li>引入了额外的状态<code class="prettyprint">isPolling</code>，增加维护状态的成本</li>
-<li>存在太多的变数，比如我们可以在<code class="prettyprint">run()</code>方法里调用<code class="prettyprint">doSomething()</code>，也可以在<code class="prettyprint">poll()</code>方法中调用；对<code class="prettyprint">isPolling</code>的检查有可能放在两个方法的任意一个。团队不同成员之间很难统一，增加阅读理解代码的难度，并且有可能导致 bug。</li>
-<li>方法没有明确的语义，比如调用<code class="prettyprint">poll()</code>会立即执行<code class="prettyprint">doSomething()</code>吗？连续调用多次<code class="prettyprint">poll()</code>方法安全吗？不知道，只能去看代码实现细节。</li>
+<li>Boilerplate code，对每一个需要轮询的任务，都需要写相关的 <code class="prettyprint">poll()</code> 方法</li>
+<li>引入了额外的状态 <code class="prettyprint">isPolling</code>，增加维护状态的成本</li>
+<li>存在太多的变数，比如我们可以在 <code class="prettyprint">run()</code> 方法里调用 <code class="prettyprint">doSomething()</code>，也可以在 <code class="prettyprint">poll()</code> 方法中调用；对 <code class="prettyprint">isPolling</code> 的检查有可能放在两个方法的任意一个。团队不同成员之间很难统一，增加阅读理解代码的难度，并且有可能导致 bug。</li>
+<li>方法没有明确的语义，比如调用 <code class="prettyprint">poll()</code> 会立即执行 <code class="prettyprint">doSomething()</code> 吗？连续调用多次 <code class="prettyprint">poll()</code> 方法安全吗？不知道，只能去看代码实现细节。</li>
 </ul>
 
 <p>我们可以把轮询的逻辑封装起来，并提供语义明确的声明式 API</p>
@@ -178,7 +178,7 @@ public class PollingDevice {
   };
 </pre>
 
-<p>可以看到，只需要在相关生命周期方法调用开始和停止轮询方法，并把需要执行的内容作为参数传进去，即可实现轮询。<code class="prettyprint">PollingDevice</code>保证重复调用轮询 API 是安全的。</p>
+<p>可以看到，只需要在相关生命周期方法调用开始和停止轮询方法，并把需要执行的内容作为参数传进去，即可实现轮询。<code class="prettyprint">PollingDevice</code> 保证重复调用轮询 API 是安全的。</p>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">

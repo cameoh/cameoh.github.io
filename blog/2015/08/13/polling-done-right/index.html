@@ -143,14 +143,16 @@ public class PollingDevice {
 <p>封装后实现轮询变得非常简单：</p>
 
 <pre class="prettyprint">
-  private Handler mHandler = new Handler();
-  
+  private PollingDevice mPollingDevice;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     // do other initialization task
 
+	mPollingDevice = new PollingDevice(new Handler());
+	
     doSomething();
   }
 

@@ -28,14 +28,14 @@
 本文讨论 Android 如何实现异步 socket
 </div>
 
-<p>随着移动设备硬件能力的提升和对用户体验的追求，在一些要求高实时性并且存在双向（客户端向服务器端、服务器端向客户端）数据发送的场景，我们需要在 Android 上实现异步（不阻塞 UI 线程）全双工（同时读、写）的 socket 来满足需求。在 iOS 平台上已经有非常好的解决方案：<a href="https://github.com/robbiehanson/CocoaAsyncSocket" target="_blank">CocoaAsyncSocket</a>。它的功能非常完善，其中我们最关心的异步读写：<p>
+<p>随着移动设备硬件能力的提升和对用户体验的进一步追求，有一些要求高实时性并且存在双向（客户端向服务器端、服务器端向客户端）数据发送的场景，我们需要在 Android 上实现异步（不阻塞 UI 线程）全双工（能同时读、写）的 socket 来满足需求。这个问题在 iOS 平台上已经有非常好的解决方案：<a href="https://github.com/robbiehanson/CocoaAsyncSocket" target="_blank">CocoaAsyncSocket</a>。它的功能非常完善，其中我们最关心的异步读写：<p>
 
 <blockquote cite="https://github.com/robbiehanson/CocoaAsyncSocket">
 Queued non-blocking reads and writes, with optional timeouts.<br />
-<i>You tell it what to read or write, and it handles everything for you. Queueing, buffering, and searching for termination sequences within the stream - all handled for you automatically.<i>
+<i>You tell it what to read or write, and it handles everything for you. Queueing, buffering, and searching for termination sequences within the stream - all handled for you automatically.</i>
 </blockquote>
 
-<p>Android 平台上类似的开源项目 <a href="https://github.com/koush/AndroidAsync" target="_blank">AndroidAsync</a>，使用的是 java.nio 包下的类。但是 java.nio 包存在先天不足，IO 操作在上一个操作没有完成时会阻塞：</p>
+<p>Android 平台上类似的开源项目 <a href="https://github.com/koush/AndroidAsync" target="_blank">AndroidAsync</a>，使用的是 java.nio 包下的类。但是 java.nio 包存在先天不足，IO 操作在上一个操作没有完成时会<a href="http://docs.oracle.com/javase/7/docs/api/java/nio/channels/WritableByteChannel.html#write(java.nio.ByteBuffer)" target="_blank">阻塞</a>：</p>
 
 <blockquote cite="http://docs.oracle.com/javase/7/docs/api/java/nio/channels/WritableByteChannel.html#write(java.nio.ByteBuffer)">
 This method may be invoked at any time. If another thread has already initiated a write operation upon this channel, however, then an invocation of this method will block until the first operation is complete.

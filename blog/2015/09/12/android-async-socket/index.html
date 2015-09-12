@@ -25,7 +25,7 @@
 
 <div class="container">
 <div class="head-block">
-本文讨论 Android 如何实现异步 socket
+本文讨论 Android 如何实现异步全双工 socket
 </div>
 
 <p>随着移动设备硬件能力的提升和对用户体验的进一步追求，有一些要求高实时性并且存在双向（客户端向服务器端、服务器端向客户端）数据发送的场景，我们需要在 Android 上实现异步（不阻塞 UI 线程）全双工（能同时读、写）的 socket 来满足需求。这个问题在 iOS 平台上已经有非常好的解决方案：<a href="https://github.com/robbiehanson/CocoaAsyncSocket" target="_blank">CocoaAsyncSocket</a>。它的功能非常完善，其中我们最关心的异步读写：<p>
@@ -43,11 +43,10 @@ This method may be invoked at any time. If another thread has already initiated 
 
 <p>而解决了这一问题的 java.nio2 包在 Android 上没有包含。自己实现异步 socket，首先考虑的是这两个问题：</p>
 
-
-<ul>
-<li>是否使用 Service？</li>
+<ol>
+<li>是否使用 <a href="http://developer.android.com/guide/components/services.html" target="_blank">Service</a>？</li>
 <li>使用什么样的方案来实现异步全双工？<a href="http://developer.android.com/reference/android/os/AsyncTask.html" target="_blank">AsyncTask</a>？线程加同步？</li>
-</ul>
+</ol>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">

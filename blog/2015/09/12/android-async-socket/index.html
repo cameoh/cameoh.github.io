@@ -48,7 +48,7 @@ This method may be invoked at any time. If another thread has already initiated 
 <li>使用什么样的方案来实现异步全双工？<a href="http://developer.android.com/reference/android/os/AsyncTask.html" target="_blank">AsyncTask</a>？线程加同步？</li>
 </ol>
 
-<p>Service 适用于执行长时间在后台运行的没有 UI 的任务，而我们使用 socket 模块大部分是在特定的需要高实时性的页面下。如果用户退出这个页面就不再执行相关代码。也就是说在我们的用例下，socket 模块和 UI 是有很强的绑定关系的。如果使用 Service，就需要处理其相关生命周期，引入不必要的复杂度。综合考虑不使用 Service。</p>
+<p>Service 适用于执行长时间在后台运行的没有 UI 的任务，而我们使用 socket 模块大部分是在特定的需要高实时性的页面下。如果用户退出这个页面就不再执行相关代码。也就是说在我们的用例下，socket 模块和 UI 是有很强的绑定关系的。如果使用 Service，还需要处理其相关生命周期，引入不必要的复杂度。综合考虑不使用 Service。</p>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">

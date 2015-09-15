@@ -54,7 +54,7 @@ This method may be invoked at any time. If another thread has already initiated 
 
 <p>Service 适用于执行长时间在后台运行的没有 UI 的任务，而我们使用 socket 模块大部分是在特定的需要高实时性的页面下。如果用户退出这个页面就不再执行相关代码。也就是说在我们的用例下，socket 模块和 UI 是有很强的绑定关系的。如果使用 Service，还需要处理其相关生命周期，引入不必要的复杂度。综合考虑不使用 Service。</p>
 
-<p>接下来是异步 IO 实现方案的选择。AsyncTask 适用于执行短暂的没有复杂逻辑的后台任务。它无法提供精确的线程调度机制，其实现在 Android 不同版本也有差别。异步 socket 模块需要维护连接状态、执行读写操作。如果直接使用线程，不可避免会有同步的问题。线程这套 API 相对于我们需要解决的问题还是太底层了。Android 提供了一套线程消息机制：Handler。在这基础上，可以方便的实现异步全双工 socket。长连接的状态在主线程维护，IO 通过 handler 发送消息到后台线程执行，执行完毕后再发送消息回主线程。</p>
+<p>接下来是异步 IO 实现方案的选择。AsyncTask 适用于执行短暂的没有复杂逻辑的后台任务。它无法提供精确的线程调度机制，其实现在 Android 不同版本也有差别。异步 socket 模块需要维护连接状态、执行读写操作，有一系列的状态需要维护。AsyncTask 无能为力的情况下，如果直接使用线程，不可避免会有同步的问题。线程这套 API 相对于我们需要解决的问题还是太底层了。Android 提供了一套线程消息机制：Handler。在这基础上，可以方便的实现异步全双工 socket。长连接的状态在主线程维护，IO 通过 handler 发送消息到后台线程执行，执行完毕后再发送消息回主线程。</p>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">

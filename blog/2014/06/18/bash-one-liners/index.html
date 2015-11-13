@@ -58,7 +58,7 @@ find res/layout -type f -exec sed -i 's/fill_parent/match_parent/g' {} +
 find res/layout -type f -print0 | xargs -0 sed -i 's/fill_parent/match_parent/g'
 </pre>
 
-<p>被划掉的命令有效率问题，见<a href="http://stackoverflow.com/questions/1583219/awk-sed-how-to-do-a-recursive-find-replace-of-a-string" target="_blank">这里</a>的讨论</p>
+<p>被划掉的命令有性能问题，见<a href="http://stackoverflow.com/questions/1583219/awk-sed-how-to-do-a-recursive-find-replace-of-a-string" target="_blank">这里</a>的讨论</p>
 
 <h3>转换文本文件编码为 UTF-8</h3>
 <pre class="prettyprint">

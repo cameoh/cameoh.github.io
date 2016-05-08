@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>Java范型</title>
+<link rel="shortcut icon" href="../../../../../../img/favicon.ico" />
+<link href="../../../../../../css/google-code-prettify/prettify.css" rel="stylesheet" />
+<script src="../../../../../../js/google-code-prettify/prettify.js"></script>
+<style>
+pre {
+  background-color: #FAFAFA;
+  overflow: auto;
+}
+.head-block {
+  background-color: #D3D3D3;
+  padding: 1em;
+}
+.container{
+   max-width: 48em;
+   margin: 0 auto;
+}
+</style>
+</head>
+<body onload="prettyPrint()">
+
+<div class="container">
+<div class="head-block">
+本文讨论 Java 范型的一些容易混淆的地方。用一句话总结就是：类型擦除是一个过度简化的说法。
+</div>
+
+<p>Java 范型使用了类型擦除的方案。原因是需要兼容老代码。类型擦除是一个过度简化的说法，其精确含义是指 <code class="prettyprint">List&lt;T&gt;</code> 和 <code>List</code> 在运行时的类型是同一个，即类对象是一个。但是，对于另外大多数的情况，Java 提供在运行时的获取范型参数类型的方法。</p>
+
+<p>考虑这样一个类：</p>
+<pre class="prettyprint">
+public class ParameterizedClass extends List&lt;String&gt; {
+  private List<Integer> genericField;
+}
+</pre>
+
+<p>ParameterizedClass 继承自参数化了的范型类型，并且拥有一个参数化了的范型成员变量。Java 提供了在运行时获取这两个范型参数的 API：</p>
+
+<ul>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html#getGenericSuperclass--">java.lang.Class.getGenericSuperclass()</a></li>
+<li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Field.html#getGenericType--">java.lang.reflect.Field.getGenericType()</a></li>
+</ul>
+
+</p>
+第一个方法是类上面的方法，第二个方法是字段上的方法。运行时这些类型信息都是保存在 ParameterizedClass 的类对象上的。这也是为什么<code class="prettyprint">List&lt;T&gt;</code>的类型参数信息被擦除了而 ParameterizedClass 的没有——因为所有的 <code class="prettyprint">List&lt;&gt;</code> 在运行时的类对象都是一个，不可能在一个类对象上保存多份参数化类型；而 ParameterizedClass 只需要关心它自己的信息。
+</p>
+
+<p>使用这两个方法来完善的处理各种情况（多层继承等），还需要做<a href="https://www.javacodegeeks.com/2013/12/advanced-java-generics-retreiving-generic-type-arguments.html">进一步的工作</a>。在框架或者库代码中，往往会使用这种技巧。比如 json 解析库 Jackson、Gson 都使用了这种技术让 API 更简洁。</p>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+  var disqus_shortname = 'cameoh';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+</body>
+</html>

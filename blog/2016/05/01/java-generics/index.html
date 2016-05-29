@@ -52,7 +52,7 @@ public class ParameterizedGenericClass extends List&lt;String&gt; {
 第一个方法是类上面的方法，第二个方法是字段上的方法。运行时这些类型信息都保存在 <code class="prettyprint">ParameterizedGenericClass</code> 的类对象上。这也是为什么 <code class="prettyprint">List&lt;T&gt;</code> 的类型参数信息被擦除了而 <code class="prettyprint">ParameterizedGenericClass</code> 的没有——因为所有的 <code class="prettyprint">List&lt;T&gt;</code> 在运行时的类对象是同一个，无法保存多份参数化信息；而 <code class="prettyprint">ParameterizedGenericClass</code> 只需要关心它自己的信息。
 </p>
 
-<p>使用这两个方法来完善的处理各种情况（多层继承等），需要做<a href="https://www.javacodegeeks.com/2013/12/advanced-java-generics-retreiving-generic-type-arguments.html" target="_blank">进一步的工作</a>。在框架或者库代码中，往往会使用这种技巧。比如 json 解析库 Jackson、Gson 都使用了这种技术以得到更简洁的 API。</p>
+<p>使用这两个方法来完善的处理各种情况（多层继承等），需要做<a href="https://www.javacodegeeks.com/2013/12/advanced-java-generics-retreiving-generic-type-arguments.html" target="_blank">进一步的工作</a>。在框架或者库代码中，往往会使用这种技巧。比如 JSON 解析库 Jackson、Gson 都使用了这种技术以得到更简洁的 API。</p>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">

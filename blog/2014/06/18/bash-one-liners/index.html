@@ -32,6 +32,11 @@ pre {
 本文记录碰到的命令行使用例子
 </div>
 
+<h3>查看当前显示的Activity信息</h3>
+<pre class="prettyprint">
+adb shell dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp'
+</pre>
+
 <h3>查看某文件夹所占磁盘空间</h3>
 <pre class="prettyprint">
 du -hs /path/to/the/directory

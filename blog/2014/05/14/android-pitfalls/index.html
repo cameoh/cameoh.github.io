@@ -38,6 +38,10 @@ img{
 本文记录一些Android开发中遇到的坑。掉坑里的原因有时是API文档对某个细节语焉不详，有时就直接是Android系统的bug。这些坑在被发现之后，大多能通过搜索找到解决办法，但有时也需要开发者深入源码去探究问题的根源。
 </div>
 
+<h3><code class="prettyprint">SharedPreferences</code>的bug</h3>
+
+<p>保存字符串如果末尾是换行符，在下次读取时可能会多四个空格。详见<a href="https://code.google.com/p/android/issues/detail?id=159799" target="_blank">这里</a>。</p>
+
 <h3><code class="prettyprint">RemoteViews</code>的bug</h3>
 
 <p>在通知栏通知中显示自定义视图，需要用到<code class="prettyprint">RemoteViews</code>这个类。版本上线后发现在Android 2.3及以下系统，收到的通知是空白的。搜索发现这是一个谷歌官方<a href="https://code.google.com/p/android/issues/detail?id=30495" target="_blank">记录在案</a>的bug。解决办法是用以下方法绕过去：</p>

@@ -32,6 +32,12 @@ pre {
 本文记录碰到的命令行使用例子
 </div>
 
+<h3>在命令行更新Android SDK</h3>
+<pre class="prettyprint">
+android list sdk --all
+android update sdk -u -a -t 1,2,3,4,..,n
+</pre>
+
 <h3>查看当前显示的Activity信息</h3>
 <pre class="prettyprint">
 adb shell dumpsys window windows | grep -E 'mCurrentFocus|mFocusedApp'

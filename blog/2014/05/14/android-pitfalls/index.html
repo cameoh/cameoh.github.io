@@ -39,11 +39,12 @@ img{
 </div>
 
 <h3><code class="prettyprint">SharedPreferences</code>的bug</h3>
+<p><code class="prettyprint">IntentService</code>中注册的广播接收器在任务执行完后会失效。详见<a href="http://stackoverflow.com/questions/26502993/registerreceiver-from-intentservice-doesnt-hit-broadcastreceiver" target="_blank">这里</a>。</p>
 
+<h3><code class="prettyprint">SharedPreferences</code>的bug</h3>
 <p>保存字符串如果末尾是换行符，在下次读取时可能会多四个空格。详见<a href="https://code.google.com/p/android/issues/detail?id=159799" target="_blank">这里</a>。</p>
 
 <h3><code class="prettyprint">RemoteViews</code>的bug</h3>
-
 <p>在通知栏通知中显示自定义视图，需要用到<code class="prettyprint">RemoteViews</code>这个类。版本上线后发现在Android 2.3及以下系统，收到的通知是空白的。搜索发现这是一个谷歌官方<a href="https://code.google.com/p/android/issues/detail?id=30495" target="_blank">记录在案</a>的bug。解决办法是用以下方法绕过去：</p>
 <pre class="prettyprint">
 notification = builder.build();

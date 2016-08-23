@@ -38,6 +38,9 @@ img{
 本文记录一些Android开发中遇到的坑。掉坑里的原因有时是API文档对某个细节语焉不详，有时就直接是Android系统的bug。这些坑在被发现之后，大多能通过搜索找到解决办法，但有时也需要开发者深入源码去探究问题的根源。
 </div>
 
+<h3>onSizeChanged方法中改变布局参数需要注意</h3>
+<p><code class="prettyprint">onSizeChanged</code>方法中直接改变布局参数不会生效。原因是这个方法是在布局过程中被调用的。详见<a href="http://stackoverflow.com/questions/5852758/views-inside-a-custom-viewgroup-not-rendering-after-a-size-change" target="_blank">这里</a>。</p>
+
 <h3>动态注册广播接收器</h3>
 <p><code class="prettyprint">IntentService</code>中动态注册的广播接收器在任务执行完后会失效。详见<a href="http://stackoverflow.com/questions/26502993/registerreceiver-from-intentservice-doesnt-hit-broadcastreceiver" target="_blank">这里</a>。</p>
 

@@ -41,6 +41,10 @@ img{
 <h3>onSizeChanged方法中改变布局参数需要注意</h3>
 <p><code class="prettyprint">onSizeChanged</code>方法中直接改变布局参数不会生效。原因是这个方法是在布局过程中被调用的。详见<a href="http://stackoverflow.com/questions/5852758/views-inside-a-custom-viewgroup-not-rendering-after-a-size-change" target="_blank">这里</a>。</p>
 
+<h3>chrisbanes/Android-PullToRefresh闪烁问题</h3>
+<p><a href="https://github.com/chrisbanes/Android-PullToRefresh" target="_blank">Android-PullToRefresh</a>是一个开源下拉刷新控件。项目中使用这个控件时发现，在控件尺寸发生改变时，列表内容会闪烁一下。原因是其在onSizeChanged方法中通过post调用requestLayout，布局变化在第二次layout pass中才生效。修复commit<a href="https://github.com/cameoh/Android-PullToRefresh/commit/72ea0220ac0f971985aeee4400c93554e6345730" target="_blank">在此</a>。结合上一个问题看，深入理解View绘制过程对解决自定义控件中的问题是很有必要的。
+</p>
+
 <h3>动态注册广播接收器</h3>
 <p><code class="prettyprint">IntentService</code>中动态注册的广播接收器在任务执行完后会失效。详见<a href="http://stackoverflow.com/questions/26502993/registerreceiver-from-intentservice-doesnt-hit-broadcastreceiver" target="_blank">这里</a>。</p>
 
